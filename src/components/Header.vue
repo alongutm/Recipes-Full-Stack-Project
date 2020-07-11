@@ -37,7 +37,7 @@
                 <em>Hello, guest</em>
               </template>
               <b-dropdown-item disabled :to="{ name: 'login' }">Sign In</b-dropdown-item>
-              <b-dropdown-item disabled :to="{ name: 'register' }">Sign Up</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'register' }">Sign Up</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
