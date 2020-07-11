@@ -14,32 +14,21 @@
           type="text"
           :state="validateState('username')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.username.required">
-          Username is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.username.length">
-          Username length should be between 3-8 characters long
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
-        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.username.required">Username is required</b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-else-if="!$v.form.username.length"
+        >Username length should be between 3-8 characters long</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.username.alpha">Username alpha</b-form-invalid-feedback>
       </b-form-group>
 
-      <b-form-group
-        id="input-group-country"
-        label-cols-sm="3"
-        label="Country:"
-        label-for="country"
-      >
+      <b-form-group id="input-group-country" label-cols-sm="3" label="Country:" label-for="country">
         <b-form-select
           id="country"
           v-model="$v.form.country.$model"
           :options="countries"
           :state="validateState('country')"
         ></b-form-select>
-        <b-form-invalid-feedback>
-          Country is required
-        </b-form-invalid-feedback>
+        <b-form-invalid-feedback>Country is required</b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group
@@ -54,18 +43,15 @@
           v-model="$v.form.password.$model"
           :state="validateState('password')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.password.required">
-          Password is required
-        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.password.required">Password is required</b-form-invalid-feedback>
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
-          Your password should be <strong>strong</strong>. <br />
-          For that, your password should be also:
+          Your password should be
+          <strong>strong</strong>.
+          <br />For that, your password should be also:
         </b-form-text>
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
-        >
-          Have length between 5-10 characters long
-        </b-form-invalid-feedback>
+        >Have length between 5-10 characters long</b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group
@@ -80,27 +66,19 @@
           v-model="$v.form.confirmedPassword.$model"
           :state="validateState('confirmedPassword')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.confirmedPassword.required">
-          Password confirmation is required
-        </b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-if="!$v.form.confirmedPassword.required"
+        >Password confirmation is required</b-form-invalid-feedback>
         <b-form-invalid-feedback
           v-else-if="!$v.form.confirmedPassword.sameAsPassword"
-        >
-          The confirmed password is not equal to the original password
-        </b-form-invalid-feedback>
+        >The confirmed password is not equal to the original password</b-form-invalid-feedback>
       </b-form-group>
 
       <b-button type="reset" variant="danger">Reset</b-button>
-      <b-button
-        type="submit"
-        variant="primary"
-        style="width:250px;"
-        class="ml-5 w-75"
-        >Register</b-button
-      >
+      <b-button type="submit" variant="primary" style="width:250px;" class="ml-5 w-75">Register</b-button>
       <div class="mt-2">
         You have an account already?
-        <router-link to="login"> Log in here</router-link>
+        <router-link to="login">Log in here</router-link>
       </div>
     </b-form>
     <b-alert
@@ -109,13 +87,11 @@
       variant="warning"
       dismissible
       show
-    >
-      Register failed: {{ form.submitError }}
-    </b-alert>
+    >Register failed: {{ form.submitError }}</b-alert>
     <!-- <b-card class="mt-3 md-3" header="Form Data Result">
       <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
       <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
-    </b-card> -->
+    </b-card>-->
   </div>
 </template>
 
@@ -153,7 +129,7 @@ export default {
     form: {
       username: {
         required,
-        length: (u) => minLength(3)(u) && maxLength(8)(u),
+        length: username => minLength(3)(username) && maxLength(8)(username),
         alpha
       },
       country: {
@@ -161,7 +137,13 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: password => minLength(5)(password) && maxLength(10)(password),
+        containsNumber: function(value) {
+          return !/[0-9]/.test(value);
+        },
+        containsSpecial: function(value) {
+          return !/[#?!@$%^&*-]/.test(value);
+        }
       },
       confirmedPassword: {
         required,
