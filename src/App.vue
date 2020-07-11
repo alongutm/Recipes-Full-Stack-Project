@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <Header />
+    <!-- <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       {{ !$root.store.username }}
@@ -12,14 +13,18 @@
       <span v-else>
         {{ $root.store.username }}: <button @click="Logout">Logout</button>|
       </span>
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>
 
 <script>
+import Header from "./components/Header"
 export default {
   name: "App",
+  components: {
+    Header
+  },
   methods: {
     Logout() {
       this.$root.store.logout();
