@@ -1,31 +1,52 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
-  </div>
+  <b-container class="container">
+    <b-row>
+      <b-col cols="8" md="8">
+        <RecipePreviewList
+          ref="RecipePreviewList"
+          title="Explore These Recipes"
+          class="RandomRecipes center"
+          :bus="bus"
+        />
+        <b-button block variant="dark" @click="updateRecipes">More Recipes</b-button>
+      </b-col>
+
+
+      <b-col cols="4" md="4" right>
+        <LastWatchedPreview
+          ref="LastWatchedPreview"
+          title="Last Watched"
+          class="RandomRecipes center"
+          :bus="bus" />
+      </b-col>
+
+      <!-- <b-col cols="4" md="4" right>
+        <LastWatchedRecipes v-if="$root.store.username"
+          ref="LastWatchedPreview"
+          title="Last Watched"
+          class="Last Watched"
+          :bus="bus" />
+        <LoginComponent v-else />
+      </b-col> -->
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import LoginComponent from "../components/LoginComponent";
+import LastWatchedPreview from "../components/LastWatchedPreview";
+
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
+   // LoginComponent,
+    LastWatchedPreview
+  },
+  methods: {
+    updateRecipes: function() {
+      this.$refs.RecipePreviewList.updateRecipes();
+    }
   }
 };
 </script>
