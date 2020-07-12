@@ -20,6 +20,9 @@
             </b-nav-form>
 
             <!-- for a signed in user  -->
+            <b-avatar src="$root.store.profile_pic" v-if="$root.store.profile_pic" right></b-avatar>
+            <b-avatar variant="secondary" v-else right></b-avatar>
+
             <b-nav-item-dropdown v-if="$root.store.username" right>
               <!-- Using 'button-content' slot -->
               <template v-slot:button-content>
