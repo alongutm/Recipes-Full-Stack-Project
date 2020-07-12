@@ -39,6 +39,9 @@
               <b-dropdown-item disabled :to="{ name: 'login' }">Sign In</b-dropdown-item>
               <b-dropdown-item :to="{ name: 'register' }">Sign Up</b-dropdown-item>
             </b-nav-item-dropdown>
+
+            <b-avatar variant="secondary" v-if="!$root.store.username"></b-avatar>
+            <b-avatar src="$root.store.profile_pic" v-else></b-avatar>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
