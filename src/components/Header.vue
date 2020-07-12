@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <div>
-      <b-navbar tabs toggleable="lg" type="dark" variant="info">
+      <b-navbar tabs toggleable="lg" type="dark" variant="dark">
         <b-navbar-brand :to="{ name: 'main' }">CoockBook</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
