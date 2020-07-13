@@ -1,48 +1,63 @@
 <template>
-  <div class="container">
-    <div v-if="recipe">
-      <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
-      </div>
-      <div class="recipe-body">
-        <div class="wrapper">
-          <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
-            </div>
-            Ingredients:
-            <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
-                {{ r.original }}
-              </li>
-            </ul>
-          </div>
-          <div class="wrapped">
-            Instructions:
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
+
+<b-container class="bv-example-row" >
+  <b-card style="max-width: 100%;">
+  <div v-if="recipe">
+
+<b-breadcrumb>
+    <b-breadcrumb-item href="/">
+      <b-icon icon="house-fill"   ></b-icon>
+      Home
+    </b-breadcrumb-item>
+    <b-breadcrumb-item active>{{recipe.title}}</b-breadcrumb-item>
+    </b-breadcrumb>
+
+  <b-row >
+    <b-col cols="12" md="7" align-self="center">
+    <h1>{{ recipe.title }} </h1>
+    <RecipeDetails :recipe="recipe" />
+    </b-col>
+      <b-col align-self="end">
+        <b-button block  to="/PrepareRecipe" variant="dark" size="lg">Wanna make this dish? Click here!</b-button>
+ </b-col>
+ </b-row>
+
+    <b-row>
+    <b-col cols="12" md="7" align-self="center">
+    <img :src="recipe.image" width=95% /> 
+       <Instructions :recipe="recipe" />
+    </b-col>
+    <b-col cols="6" md="5" align-self="start">
+        <br>
+        <!--What you'll need-->
+      <Ingredients :recipe="recipe"/>
+
+    </b-col>
+    </b-row>
+    <b-row>
+    <b-col cols="12" md="8" >
+    </b-col>
+    <b-col cols="6" md="4">
+      <br>
+
+    </b-col>
+  </b-row>
+
     </div>
-  </div>
+  </b-card>
+  </b-container>
 </template>
 
 <script>
+import Ingredients from "../components/Ingredients"
+import Instructions from "../components/Instructions"
+import RecipeDetails from "../components/RecipeDetails"
 export default {
+  components : {
+    Ingredients,
+    Instructions,
+    RecipeDetails
+  },
   data() {
     return {
       recipe: null
@@ -60,7 +75,6 @@ export default {
             params: { id: this.$route.params.recipeId }
           }
         );
-
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
@@ -76,7 +90,8 @@ export default {
         aggregateLikes,
         readyInMinutes,
         image,
-        title
+        title,
+        MealsQuantity,
       } = response.data.recipe;
 
       let _instructions = analyzedInstructions

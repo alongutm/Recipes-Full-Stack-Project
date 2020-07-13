@@ -6,18 +6,18 @@
           ref="RecipePreviewList"
           title="Explore These Recipes"
           class="RandomRecipes center"
-          :bus="bus"
+          
         />
         <b-button block variant="dark" @click="updateRecipes">More Recipes</b-button>
       </b-col>
 
 
       <b-col cols="4" md="4" right>
-        <LastWatchedPreview
+        <LastWatchedRecipes
           ref="LastWatchedPreview"
           title="Last Watched"
           class="RandomRecipes center"
-          :bus="bus" />
+           />
       </b-col>
 
       <!-- <b-col cols="4" md="4" right>
@@ -27,7 +27,8 @@
           class="Last Watched"
           :bus="bus" />
         <LoginComponent v-else />
-      </b-col> -->
+      </b-col>-->
+
     </b-row>
   </b-container>
 </template>
@@ -35,13 +36,13 @@
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
 import LoginComponent from "../components/LoginComponent";
-import LastWatchedPreview from "../components/LastWatchedPreview";
+import LastWatchedRecipes from "../components/LastWatchedRecipes";
 
 export default {
   components: {
     RecipePreviewList,
-   // LoginComponent,
-    LastWatchedPreview
+    //LoginComponent,
+    LastWatchedRecipes
   },
   methods: {
     updateRecipes: function() {
