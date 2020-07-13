@@ -8,8 +8,8 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item disabled :to="{ name: 'search' }">Search Recipe</b-nav-item>
-            <b-nav-item disabled :to="{ name: 'about' }">About</b-nav-item>
+            <b-nav-item  :to="{ name: 'search' }">Search Recipe</b-nav-item>
+            <b-nav-item  :to="{ name: 'about' }">About</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items for a signed in user -->
