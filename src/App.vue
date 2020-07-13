@@ -62,8 +62,6 @@ export default {
   color: #42b983;
 }
 
-.carousel-slide {
-    vertical-align: text-top;
-}
+
 
 </style>

@@ -4,7 +4,7 @@
       <template v-slot:header>
         <h4 class="mb-0"></h4>
       </template>
-
+  
       <b-card-body>
         <b-card-sub-title class="mb-2">{{recipe.title}}</b-card-sub-title>
         <b-card-text class="mb-2"><b-icon icon="stopwatch"></b-icon> {{recipe.readyInMinutes}} minutes</b-card-text>

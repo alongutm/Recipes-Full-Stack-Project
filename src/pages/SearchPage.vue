@@ -1,50 +1,33 @@
 <template>
 <div>
+  <br/>
 <CuisineSelector/>
+<br/>
+<DietSelector/>
+<br/>
+<IntolerancesSelector/>
+<br/>
+<ResultSizeSelector/>
+
 </div>
 
 </template>
 
 <script>
 import CuisineSelector from "../components/CuisineSelector";
+import DietSelector from "../components/DietSelector";
+import IntolerancesSelector from "../components/IntolerancesSelector";
+import ResultSizeSelector from "../components/ResultSizeSelector";
 
 export default {
   components: {
-    CuisineSelector
+    CuisineSelector,
+    DietSelector,
+    IntolerancesSelector,
+    ResultSizeSelector
   },
   data () {
-    return {
-      value: [],
-      options: [
-        { name: 'African' },
-        { name: 'American'},
-        { name: 'British' },
-        { name: 'Cajun' },
-        { name: 'Caribbean' },
-        { name: 'Chinese' },
-        { name: 'Eastern European' },
-        { name: 'European'},
-        { name: 'French' },
-        { name: 'German' },
-        { name: 'Greek' },
-        { name: 'Indian' },
-        { name: 'Irish'},
-        { name: 'Italian' },
-        { name: 'Japanese' },
-        { name: 'Jewish' },
-        { name: 'Chinese' },
-        { name: 'Korean' },
-        { name: 'Latin American'},
-        { name: 'Mediterranean' },
-        { name: 'Mexican' },
-        { name: 'Middle Eastern' },
-        { name: 'Nordic' },
-        { name: 'Southern' },
-        { name: 'Spanish'},
-        { name: 'Thai' },
-        { name: 'Vietnamese' }
-      ]
-    }
+    
   }
 }
 </script>
