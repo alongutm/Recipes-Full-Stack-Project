@@ -1,59 +1,57 @@
 <template>
+  <b-container class="bv-example-row">
+    <b-card style="max-width: 100%;">
+      <div v-if="recipe">
+        <b-breadcrumb>
+          <b-breadcrumb-item href="/">
+            <b-icon icon="house-fill"></b-icon>Home
+          </b-breadcrumb-item>
+          <b-breadcrumb-item active>{{recipe.title}}</b-breadcrumb-item>
+        </b-breadcrumb>
 
-<b-container class="bv-example-row" >
-  <b-card style="max-width: 100%;">
-  <div v-if="recipe">
+        <b-row>
+          <b-col cols="12" md="7" align-self="center">
+            <h1>{{ recipe.title }}</h1>
+            <RecipeDetails :recipe="recipe" />
+          </b-col>
+          <b-col align-self="end">
+            <b-button
+              block
+              to="/PrepareRecipe"
+              variant="dark"
+              size="lg"
+            >Wanna make this dish? Click here!</b-button>
+          </b-col>
+        </b-row>
 
-<b-breadcrumb>
-    <b-breadcrumb-item href="/">
-      <b-icon icon="house-fill"   ></b-icon>
-      Home
-    </b-breadcrumb-item>
-    <b-breadcrumb-item active>{{recipe.title}}</b-breadcrumb-item>
-    </b-breadcrumb>
-
-  <b-row >
-    <b-col cols="12" md="7" align-self="center">
-    <h1>{{ recipe.title }} </h1>
-    <RecipeDetails :recipe="recipe" />
-    </b-col>
-      <b-col align-self="end">
-        <b-button block  to="/PrepareRecipe" variant="dark" size="lg">Wanna make this dish? Click here!</b-button>
- </b-col>
- </b-row>
-
-    <b-row>
-    <b-col cols="12" md="7" align-self="center">
-    <img :src="recipe.image" width=95% /> 
-       <Instructions :recipe="recipe" />
-    </b-col>
-    <b-col cols="6" md="5" align-self="start">
-        <br>
-        <!--What you'll need-->
-      <Ingredients :recipe="recipe"/>
-
-    </b-col>
-    </b-row>
-    <b-row>
-    <b-col cols="12" md="8" >
-    </b-col>
-    <b-col cols="6" md="4">
-      <br>
-
-    </b-col>
-  </b-row>
-
-    </div>
-  </b-card>
+        <b-row>
+          <b-col cols="12" md="7" align-self="center">
+            <img :src="recipe.image" width="95%" />
+            <Instructions :recipe="recipe" />
+          </b-col>
+          <b-col cols="6" md="5" align-self="start">
+            <br />
+            <!--What you'll need-->
+            <Ingredients :recipe="recipe" />
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" md="8"></b-col>
+          <b-col cols="6" md="4">
+            <br />
+          </b-col>
+        </b-row>
+      </div>
+    </b-card>
   </b-container>
 </template>
 
 <script>
-import Ingredients from "../components/Ingredients"
-import Instructions from "../components/Instructions"
-import RecipeDetails from "../components/RecipeDetails"
+import Ingredients from "../components/Ingredients";
+import Instructions from "../components/Instructions";
+import RecipeDetails from "../components/RecipeDetails";
 export default {
-  components : {
+  components: {
     Ingredients,
     Instructions,
     RecipeDetails
@@ -67,7 +65,6 @@ export default {
     try {
       let response;
       // response = this.$route.params.response;
-
       try {
         response = await this.axios.get(
           "https://test-for-3-2.herokuapp.com/recipes/info",
@@ -91,11 +88,11 @@ export default {
         readyInMinutes,
         image,
         title,
-        MealsQuantity,
+        MealsQuantity
       } = response.data.recipe;
 
       let _instructions = analyzedInstructions
-        .map((fstep) => {
+        .map(fstep => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;
           return fstep.steps;
         })

@@ -11,24 +11,14 @@
         <b-button block variant="dark" @click="updateRecipes">More Recipes</b-button>
       </b-col>
 
-
-      <b-col cols="4" md="4" right>
-        <LastWatchedRecipes
-          ref="LastWatchedPreview"
-          title="Last Watched"
-          class="RandomRecipes center"
-           />
-      </b-col>
-
-      <!-- <b-col cols="4" md="4" right>
+        <b-col cols="4" md="4" right>
         <LastWatchedRecipes v-if="$root.store.username"
           ref="LastWatchedPreview"
           title="Last Watched"
           class="Last Watched"
           :bus="bus" />
         <LoginComponent v-else />
-      </b-col>-->
-
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -41,7 +31,7 @@ import LastWatchedRecipes from "../components/LastWatchedRecipes";
 export default {
   components: {
     RecipePreviewList,
-    //LoginComponent,
+    LoginComponent,
     LastWatchedRecipes
   },
   methods: {

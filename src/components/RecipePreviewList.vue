@@ -30,9 +30,9 @@ export default {
       recipes: []
     };
   },
-  mounted() {
-    this.updateRecipes();
-  },
+  // mounted() {
+  //   this.updateRecipes();
+  // },
   methods: {
     async updateRecipes() {
       try {
@@ -45,6 +45,49 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async myFavoriteRecipes() {
+      try {
+        this.axios.defaults.withCredentials = true;
+        const response = await this.axios.get(
+          "http://localhost:3000/profiles/myFavorites"
+        );
+        // console.log(response);
+        const recipes = response.data.recipes;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async myRecipes() {
+      try {
+        const response = await this.axios.get(
+          "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        // console.log(response);
+        const recipes = response.data.recipes;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async myFamilyRecipes() {
+      try {
+        const response = await this.axios.get(
+          "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        // console.log(response);
+        const recipes = response.data.recipes;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
