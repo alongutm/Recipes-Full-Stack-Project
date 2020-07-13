@@ -9,8 +9,8 @@
       </b-breadcrumb>
 
       <b-container class="container">
-        <RecipePreviewList
-          ref="RecipePreviewList"
+        <FamilyRecipeList
+          ref="FamilyRecipeList"
           title="My Family Recipes"
           class="RandomRecipes center"
         />
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import FamilyRecipeList from "../components/FamilyRecipeList";
 export default {
   components: {
-    RecipePreviewList
+    FamilyRecipeList
   },
   methods: {
     myFamilyRecipes: function() {
-      this.$refs.RecipePreviewList.myFamilyRecipes();
+      this.$refs.FamilyRecipeList.myFamilyRecipes();
     }
   }
 };

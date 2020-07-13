@@ -30,9 +30,9 @@ export default {
       recipes: []
     };
   },
-  mounted() {
-    this.updateRecipes();
-  },
+  // mounted() {
+  //   this.updateRecipes();
+  // },
   methods: {
     async updateRecipes() {
       try {
@@ -51,8 +51,9 @@ export default {
     },
     async myFavoriteRecipes() {
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
-          "https://test-for-3-2.herokuapp.com/recipes/random"
+          "http://localhost:3000/profiles/myFavorites"
         );
         // console.log(response);
         const recipes = response.data.recipes;
@@ -91,7 +92,6 @@ export default {
         console.log(error);
       }
     }
-
   }
 };
 </script>

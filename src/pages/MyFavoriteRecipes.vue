@@ -25,11 +25,9 @@ export default {
   components: {
     RecipePreviewList
   },
-  methods: {
-    myFavoriteRecipes: function() {
-      this.$refs.RecipePreviewList.myFavoriteRecipes();
+  mounted() {
+      this.$refs.RecipePreviewList.myFavoriteRecipes();   
     }
-  }
 };
 </script>
 

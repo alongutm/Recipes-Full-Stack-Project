@@ -16,7 +16,7 @@
           <b-navbar-nav class="ml-auto">
             <b-nav-form>
               <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button disabled size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+              <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
             </b-nav-form>
 
             <b-nav-item-dropdown v-if="$root.store.username" right>
@@ -24,11 +24,11 @@
               <template v-slot:button-content>
                 <em>{{$root.store.username}}</em>
               </template>
-              <b-dropdown-item disabled :to="{ name: 'myFavoriteRecipes' }">My Favorite Recipes</b-dropdown-item>
-              <b-dropdown-item disabled :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
-              <b-dropdown-item disabled :to="{ name: 'myFamilyRecipes' }">My Family's Recipes</b-dropdown-item>
-              <b-dropdown-item disabled :to="{ name: 'newRecipe' }">New Recipe</b-dropdown-item>
-              <b-dropdown-item disabled href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'myFavoriteRecipes' }">My Favorite Recipes</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'myFamilyRecipes' }">My Family's Recipes</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'newRecipe' }">New Recipe</b-dropdown-item>
+              <b-dropdown-item @click="logout">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
 
             <b-nav-item-dropdown v-else right>
@@ -36,7 +36,7 @@
               <template v-slot:button-content>
                 <em>Hello, guest</em>
               </template>
-              <b-dropdown-item disabled :to="{ name: 'login' }">Sign In</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'login' }">Sign In</b-dropdown-item>
               <b-dropdown-item :to="{ name: 'register' }">Sign Up</b-dropdown-item>
             </b-nav-item-dropdown>
 
@@ -51,6 +51,15 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  methods: {
+    logout() {
+      this.$root.store.logout();
+      this.$root.toast("Logout", "User logged out successfully", "success");
+      this.$router.push("/").catch(() => {
+        this.$forceUpdate();
+      });
+    }
+  }
 };
 </script>
