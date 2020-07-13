@@ -1,14 +1,21 @@
 <template>
   <div>
-    <b-card no-body style="max-width: 20rem; height: 24rem;" :img-src="recipe.image" img-alt="Image" img-top>
+
+    <b-card no-body style="max-width: 20rem; height: 24rem;"  img-alt="Image" img-top>
+        <router-link
+    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+    class="recipe-preview"
+  >
+  <b-card-img :src="recipe.image" height=150rem width=50rem></b-card-img>
       <template v-slot:header>
         <h4 class="mb-0"></h4>
       </template>
-  
       <b-card-body>
         <b-card-sub-title class="mb-2">{{recipe.title}}</b-card-sub-title>
-        <b-card-text class="mb-2"><b-icon icon="stopwatch"></b-icon> {{recipe.readyInMinutes}} minutes</b-card-text>
+        <b-card-text ><b-icon icon="stopwatch"></b-icon> {{recipe.readyInMinutes}} minutes</b-card-text>
       </b-card-body>
+          </router-link>
+
       <b-card-footer >
         <div v-if="recipe.isVegan">vegan</div>
         <div v-if="recipe.isVegeterian">vegeterian</div>

@@ -28,7 +28,7 @@
               <b-dropdown-item disabled :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
               <b-dropdown-item disabled :to="{ name: 'myFamilyRecipes' }">My Family's Recipes</b-dropdown-item>
               <b-dropdown-item disabled :to="{ name: 'newRecipe' }">New Recipe</b-dropdown-item>
-              <b-dropdown-item disabled href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item  href="#">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
 
             <b-nav-item-dropdown v-else right>

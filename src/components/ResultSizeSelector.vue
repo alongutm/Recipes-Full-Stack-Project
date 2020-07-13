@@ -1,5 +1,5 @@
 <template>
-<div>
+    <div style="width:350px;">
   <label class="typo__label">Result Size</label>
   <multiselect v-model="value" :options="options" :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"></multiselect>
 </div>

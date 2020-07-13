@@ -1,15 +1,15 @@
 <template>
   <div class="container">
     <h1 class="title">Register</h1>
-    <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+    <b-form @submit.prevent="onRegister" @reset.prevent="onReset" >
       <!-- username input  -->
-      <b-form-group
+      <b-form-group 
         id="input-group-username"
         label-cols-sm="3"
         label="Username:"
         label-for="username"
       >
-        <b-form-input
+        <b-form-input 
           id="username"
           v-model="$v.form.username.$model"
           type="text"

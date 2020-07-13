@@ -10,10 +10,10 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 import routes from "./routes";
 import VueRouter from "vue-router";
-import Vuetify from "vuetify ";
-import "vuetify/dist/vuetify.min.css";
+// import Vuetify from 'vuetify';
+// import 'vuetify/dist/vuetify.min.css';
 Vue.use(VueRouter);
-Vue.use(Vuetify);
+// Vue.use(Vuetify);
 const router = new VueRouter({
   routes,
 });

@@ -1,5 +1,6 @@
 <template>
 <div>
+  <input style="width:350px; " placeholder="write query here">
   <br/>
 <CuisineSelector/>
 <br/>
@@ -8,6 +9,9 @@
 <IntolerancesSelector/>
 <br/>
 <ResultSizeSelector/>
+<form v-on:submit.prevent="handleSearch">
+  <input type="submit" value="Search" />
+  </form>
 
 </div>
 
@@ -28,6 +32,12 @@ export default {
   },
   data () {
     
+  },
+  methods:
+  {
+    handleSearch(){
+      alert("dd");
+    }
   }
 }
 </script>
