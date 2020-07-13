@@ -3,7 +3,12 @@
 </template>
 
 <script>
-export default {};
+import LoginComponent from "../components/LoginComponent";
+export default {
+  components: {
+    LoginComponent
+  }
+};
 </script>
 
 <style>
