@@ -5,9 +5,9 @@
       <slot></slot>
     </h3>
     <b-row>
-      <b-col v-for="r in recipes" :key="r.recipe_id">
+      <div v-for="r in recipes" :key="r.recipe_id">
         <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
+      </div>
     </b-row>
   </b-container>
 </template>

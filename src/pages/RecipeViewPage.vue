@@ -26,7 +26,7 @@
 
         <b-row>
           <b-col cols="12" md="7" align-self="center">
-            <img :src="recipe.image" width="95%" />
+            <b-img rounded alt="Rounded image" :src="recipe.image" />
             <Instructions :recipe="recipe" />
           </b-col>
           <b-col cols="6" md="5" align-self="start">
@@ -67,6 +67,7 @@ export default {
 
       //user is signed in
       if (this.$root.store.username) {
+        console.log("gggg");
         this.axios.defaults.withCredentials = true;
         // add to last watched:
         const responseLastWatched = await this.axios.post(
@@ -76,7 +77,7 @@ export default {
           }
         );
         // check in My Recipes
-
+        
         const response = await this.axios.get(
           "http://localhost:3000/profiles/myRecipes"
         );
@@ -126,7 +127,7 @@ export default {
           return;
         }
 
-        // check my Family's recipe
+        
       }
       try {
         response = await this.axios.get(
