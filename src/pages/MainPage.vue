@@ -6,17 +6,18 @@
           ref="RecipePreviewList"
           title="Explore These Recipes"
           class="RandomRecipes center"
-          
         />
         <b-button block variant="dark" @click="updateRecipes">More Recipes</b-button>
       </b-col>
 
-        <b-col cols="4" md="4" right>
-        <LastWatchedRecipes v-if="$root.store.username"
+      <b-col cols="4" md="4" right>
+        <LastWatchedRecipes
+          v-if="$root.store.username"
           ref="LastWatchedPreview"
           title="Last Watched"
           class="Last Watched"
-          :bus="bus" />
+         
+        />
         <LoginComponent v-else />
       </b-col>
     </b-row>
@@ -33,6 +34,9 @@ export default {
     RecipePreviewList,
     LoginComponent,
     LastWatchedRecipes
+  },
+  mounted() {
+    this.$refs.RecipePreviewList.updateRecipes();
   },
   methods: {
     updateRecipes: function() {

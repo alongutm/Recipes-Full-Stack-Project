@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card no-body style="max-width: 20rem; height: 24rem;" img-alt="Image" img-top>
-      <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
+      <router-link :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }" class="recipe-preview">
         <b-card-img :src="recipe.image" height="150rem" width="50rem"></b-card-img>
         <template v-slot:header>
           <h4 class="mb-0"></h4>
@@ -12,15 +12,16 @@
           <b-card-text>
             Occasion: {{recipe.occasion}}
             <b-icon icon="stopwatch"></b-icon>
-            {{recipe.numberOfLikes}} minutes
+            {{recipe.coockingTime}} minutes
+        <div v-if="recipe.isVegan">vegan</div>
+        <div v-if="recipe.isVegeterian">vegeterian</div>
+        <div v-if="recipe.isGlutenFree">glutten free</div>
           </b-card-text>
         </b-card-body>
       </router-link>
 
       <b-card-footer>
-        <div v-if="recipe.isVegan">vegan</div>
-        <div v-if="recipe.isVegeterian">vegeterian</div>
-        <div v-if="recipe.isGlutenFree">glutten free</div>
+
         {{recipe.numberOfLikes}}
         <b-icon icon="hand-thumbs-up"></b-icon>
         <b-icon v-if="recipe.isFavorite" icon="heart-fill"></b-icon>

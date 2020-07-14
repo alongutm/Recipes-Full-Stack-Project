@@ -1,29 +1,40 @@
 <template>
   <div>
+    <b-card no-body style="max-width: 20rem; height: 30rem;" img-alt="Image" img-top>
+      <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }"
+        class="recipe-preview"
+      >
+        <b-card-img :src="recipe.image" height="150rem" width="50rem"></b-card-img>
+        <template v-slot:header>
+          <h4 class="mb-0"></h4>
+        </template>
+        <b-card-body>
+          <b-card-sub-title class="mb-2">{{recipe.recipeName}}</b-card-sub-title>
+          <b-card-text>
+            <b-icon icon="stopwatch"></b-icon>
+            {{recipe.coockingTime}} minutes
+            <br />
+            {{recipe.MealsQuantity}} meals
+            <div v-if="recipe.isVegan">vegan</div>
+            <div v-if="recipe.isVegeterian">vegeterian</div>
+            <div v-if="recipe.isGlutenFree">glutten free</div>
+          </b-card-text>
+        </b-card-body>
+      </router-link>
 
-    <b-card no-body style="max-width: 20rem; height: 24rem;"  img-alt="Image" img-top>
-        <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-  <b-card-img :src="recipe.image" height=150rem width=50rem></b-card-img>
-      <template v-slot:header>
-        <h4 class="mb-0"></h4>
-      </template>
-      <b-card-body>
-        <b-card-sub-title class="mb-2">{{recipe.title}}</b-card-sub-title>
-        <b-card-text ><b-icon icon="stopwatch"></b-icon> {{recipe.readyInMinutes}} minutes</b-card-text>
-      </b-card-body>
-          </router-link>
-
-      <b-card-footer >
-        <div v-if="recipe.isVegan">vegan</div>
-        <div v-if="recipe.isVegeterian">vegeterian</div>
-        <div v-if="recipe.isGlutenFree">glutten free</div>
-       {{recipe.numberOfLikes}} <b-icon icon="hand-thumbs-up"></b-icon>
+      <b-card-footer>
+        <b-icon icon="hand-thumbs-up"></b-icon>
+        {{recipe.numberOfLikes}}
         <b-icon v-if="recipe.isFavorite" icon="heart-fill"></b-icon>
-        <b-button variant="light" @click="saveToFavorites" v-else><b-icon icon="heart"></b-icon></b-button>
-        <div v-if="recipe.isSeen"> <b-icon icon="check-all"></b-icon></div>
+        <b-button v-else variant="light" @click="saveToFavorites">
+          <b-icon icon="heart"></b-icon>
+        </b-button>
+        <div v-if="recipe.isSeen">
+          <b-icon icon="check-all"></b-icon>
+        </div>
+
+        <!-- <RecipeDetails :recipe="recipe"/> -->
       </b-card-footer>
     </b-card>
   </div>
@@ -40,21 +51,43 @@ export default {
       required: true
     }
   },
-
+  mounted() {
+    this.setFavorite();
+  },
   methods: {
-   async saveToFavorites(){
-           try {
+    async setFavorite() {
+      try {
+        if (this.$root.store.username) {
+          this.axios.defaults.withCredentials = true;
+          const response = await this.axios.get(
+            "http://localhost:3000/profiles/isFavorite",
+            {
+              params: { recipe_id: this.recipe.recipe_id }
+            }
+          );
+          let id = response.data.data;
+          if (id.length > 0) {
+            this.recipe.isFavorite = true;
+          }
+        }
+      } catch {}
+    },
+    async saveToFavorites() {
+      try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.post(
-          "https://localhost:3000/profiles/addFavorite",
+          "http://localhost:3000/profiles/addFavorite",
           {
-            recipe_id: recipe.recipe_id
+            recipe_id: this.recipe.recipe_id //this.recipe
           }
         );
+        this.setFavorite();
+
         console.log(response);
       } catch (error) {
         console.log(error);
       }
-   }
+    }
   }
 };
 </script>
