@@ -1,46 +1,108 @@
 <template>
   <div>
-    <b-card no-body style="max-width: 20rem; height: 24rem;" img-alt="Image" img-top>
-      <router-link :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }" class="recipe-preview">
-        <b-card-img :src="recipe.image" height="150rem" width="50rem"></b-card-img>
-        <template v-slot:header>
-          <h4 class="mb-0"></h4>
-        </template>
-        <b-card-body>
-          <b-card-title class="mb-2">{{recipe.recipeName}}</b-card-title>
-          <b-card-sub-title class="mb-2">Author: {{recipe.author}}</b-card-sub-title>
-          <b-card-text>
-            Occasion: {{recipe.occasion}}
-            <b-icon icon="stopwatch"></b-icon>
-            {{recipe.coockingTime}} minutes
-        <div v-if="recipe.isVegan">vegan</div>
-        <div v-if="recipe.isVegeterian">vegeterian</div>
-        <div v-if="recipe.isGlutenFree">glutten free</div>
-          </b-card-text>
-        </b-card-body>
-      </router-link>
+    <b-container class="bv-example-row">
+      <b-card style="max-width: 100%;">
+        <div v-if="recipe">
+          <b-row>
+            <!-- <b-col cols="12" md="8" align-self="center"> -->
+            <h1>{{ recipe.recipeName }}</h1>
+            <br>
+            <div>
+              for up to {{ recipe.MealsQuantity}} meals
+              <b-list-group horizontal>
+                <b-list-group-item v-if="recipe.isVegan">vegan</b-list-group-item>
+                <b-list-group-item v-if="recipe.isVegeterian">vegeterian</b-list-group-item>
+                <b-list-group-item v-if="recipe.isGlutenFree">glutten free</b-list-group-item>
+                <b-list-group-item>occasion: {{recipe.occasion}}</b-list-group-item>
+                <b-list-group-item>Author: {{recipe.author}}</b-list-group-item>
+                <b-list-group-item>
+                  {{recipe.numberOfLikes}}
+                  <b-icon icon="hand-thumbs-up"></b-icon>
+                </b-list-group-item>
+                <b-list-group-item v-if="recipe.isSeen">
+                  <b-icon icon="check-all"></b-icon>
+                </b-list-group-item>
+                <b-list-group-item>
+                  <b-icon icon="stopwatch"></b-icon>
+                  {{recipe.coockingTime}} minutes
+                </b-list-group-item>
+              </b-list-group>
+              <br />
+            </div>
+            <!-- </b-col> -->
+          </b-row>
 
-      <b-card-footer>
+          <b-row>
+            <b-col cols="12" md="7" align-self="center">
+              <b-img fluid-grow rounded alt="Rounded image" :src="recipe.image" />
+              <!--Instructions-->
+              <div>
+                <h2>Ready? Let's start!</h2>
+                <b-list-group flush>
+                  <div v-if="recipe._instructions">
+                    <b-list-group-item v-for="s in recipe._instructions" :key="s.number">
+                      <b-icon icon="egg-fried"></b-icon>
+                      {{ s.step }}
+                    </b-list-group-item>
+                  </div>
+                  <div v-if="recipe.Instructions">
+                    <b-list-group-item>
+                      <b-icon icon="egg-fried"></b-icon>
+                      {{ recipe.Instructions }}
+                    </b-list-group-item>
+                  </div>
+                </b-list-group>
+              </div>
+            </b-col>
+            <b-col cols="6" md="5" align-self="start">
+              <br />
 
-        {{recipe.numberOfLikes}}
-        <b-icon icon="hand-thumbs-up"></b-icon>
-        <b-icon v-if="recipe.isFavorite" icon="heart-fill"></b-icon>
-        <b-button variant="light" @click="saveToFavorites" v-else>
-          <b-icon icon="heart"></b-icon>
-        </b-button>
-        <div v-if="recipe.isSeen">
-          <b-icon icon="check-all"></b-icon>
+              <!--What you'll need-->
+              <div>
+                <b-card header="What you'll need" style="max-width: 300rem;">
+                  <b-list-group flush>
+                    <div v-if="recipe.extendedIngredients">
+                      <b-list-group-item
+                        v-for="(r, index) in recipe.extendedIngredients"
+                        :key="index + '_' + r.id"
+                      >
+                        <b-icon icon="egg-fried"></b-icon>
+                        {{ r.original }}
+                      </b-list-group-item>
+                    </div>
+                    <div v-if="recipe.IngredientList">
+                      <b-list-group-item
+                        v-for="(r, index) in recipe.IngredientList"
+                        :key="index + '_' + r"
+                      >
+                        <b-icon icon="egg-fried"></b-icon>
+                        {{ r }}
+                      </b-list-group-item>
+                    </div>
+                  </b-list-group>
+                </b-card>
+              </div>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col cols="12" md="8"></b-col>
+            <b-col cols="6" md="4">
+              <br />
+            </b-col>
+          </b-row>
         </div>
-      </b-card-footer>
-    </b-card>
+      </b-card>
+    </b-container>
   </div>
 </template>
 
 <script>
 export default {
+  name: "FamilyRecipePreview",
   data() {
     return {};
   },
+
   props: {
     recipe: {
       type: Object,
@@ -126,3 +188,30 @@ export default {
   text-align: center;
 }
 </style>
+
+
+    <!-- <b-card no-body style="max-width: 15rem; height: 30rem;" img-alt="Image" img-top>
+      <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }"
+        class="recipe-preview"
+      >
+        <b-card-img :src="recipe.image" height="150rem" width="50rem"></b-card-img>
+        <template v-slot:header>
+          <h4 class="mb-0"></h4>
+        </template>
+        <b-card-body>
+        </b-card-body>
+      </router-link>
+
+      <b-card-footer>
+        {{recipe.numberOfLikes}}
+        <b-icon icon="hand-thumbs-up"></b-icon>
+        <b-icon v-if="recipe.isFavorite" icon="heart-fill"></b-icon>
+        <b-button variant="light" @click="saveToFavorites" v-else>
+          <b-icon icon="heart"></b-icon>
+        </b-button>
+        <div v-if="recipe.isSeen">
+          <b-icon icon="check-all"></b-icon>
+        </div>
+      </b-card-footer>
+    </b-card> -->

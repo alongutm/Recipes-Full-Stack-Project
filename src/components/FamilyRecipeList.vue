@@ -5,12 +5,15 @@
       <slot></slot>
     </h3>
     <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+      <div v-for="r in recipes" :key="r.recipe_id">
         <FamilyRecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
+        <br>
+      </div>
     </b-row>
   </b-container>
 </template>
+
+
 
 <script>
 import FamilyRecipePreview from "./FamilyRecipePreview.vue";
@@ -36,11 +39,12 @@ export default {
   methods: {
     async myFamilyRecipes() {
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
-          "https://test-for-3-2.herokuapp.com/recipes/random"
+          "http://localhost:3000/profiles/myFamilyRecipes"
         );
         // console.log(response);
-        const recipes = response.data.recipes;
+        const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
         console.log(this.recipes);

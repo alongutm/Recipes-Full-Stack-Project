@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card no-body style="max-width: 20rem; height: 30rem;" img-alt="Image" img-top>
+    <b-card no-body style="max-width: 15rem; height: 30rem;" img-alt="Image" img-top>
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }"
         class="recipe-preview"
