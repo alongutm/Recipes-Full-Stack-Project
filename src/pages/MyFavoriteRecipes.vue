@@ -26,8 +26,8 @@ export default {
     RecipePreviewList
   },
   mounted() {
-      this.$refs.RecipePreviewList.myFavoriteRecipes();   
-    }
+    this.$refs.RecipePreviewList.myFavoriteRecipes();
+  }
 };
 </script>
 

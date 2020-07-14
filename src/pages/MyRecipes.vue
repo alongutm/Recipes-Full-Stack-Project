@@ -25,10 +25,8 @@ export default {
   components: {
     RecipePreviewList
   },
-  methods: {
-    myRecipes: function() {
-      this.$refs.RecipePreviewList.myRecipes();
-    }
+  mounted() {
+    this.$refs.RecipePreviewList.myRecipes();
   }
 };
 </script>

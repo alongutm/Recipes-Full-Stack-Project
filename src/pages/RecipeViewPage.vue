@@ -6,12 +6,12 @@
           <b-breadcrumb-item href="/">
             <b-icon icon="house-fill"></b-icon>Home
           </b-breadcrumb-item>
-          <b-breadcrumb-item active>{{recipe.title}}</b-breadcrumb-item>
+          <b-breadcrumb-item active>{{recipe.recipeName}}</b-breadcrumb-item>
         </b-breadcrumb>
 
         <b-row>
           <b-col cols="12" md="7" align-self="center">
-            <h1>{{ recipe.title }}</h1>
+            <h1>{{ recipe.recipeName }}</h1>
             <RecipeDetails :recipe="recipe" />
           </b-col>
           <b-col align-self="end">
@@ -64,16 +64,81 @@ export default {
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
-      try {
-        response = await this.axios.get(
-          "https://test-for-3-2.herokuapp.com/recipes/info",
+
+      //user is signed in
+      if (this.$root.store.username) {
+        this.axios.defaults.withCredentials = true;
+        // add to last watched:
+        const responseLastWatched = await this.axios.post(
+          "http://localhost:3000/profiles/updateLastWatched",
           {
-            params: { id: this.$route.params.recipeId }
+            recipe_id: this.$route.params.recipeId
           }
         );
-        // console.log("response.status", response.status);
-        if (response.status !== 200) this.$router.replace("/NotFound");
+        // check in My Recipes
+
+        const response = await this.axios.get(
+          "http://localhost:3000/profiles/myRecipes"
+        );
+        let recipes = [];
+        recipes.push(...response.data);
+        //console.log(response.data);
+        let result = recipes.filter(
+          x => x.recipe_id === this.$route.params.recipeId
+        )[0];
+        //  console.log(result.recipe_id);
+
+        if (result) {
+          let {
+            recipe_id,
+            recipeName,
+            image,
+            coockingTime,
+            numberOfLikes,
+            Instructions,
+            isVegan,
+            isVegeterian,
+            isGlutenFree,
+            IngredientList,
+            MealsQuantity,
+            extendedIngredients,
+            analyzedInstructions
+          } = result;
+
+          let __recipe = {
+            recipe_id,
+            recipeName,
+            image,
+            coockingTime,
+            numberOfLikes,
+            Instructions,
+            isVegan,
+            isVegeterian,
+            isGlutenFree,
+            IngredientList,
+            MealsQuantity,
+            extendedIngredients,
+            analyzedInstructions
+          };
+
+          __recipe.IngredientList = IngredientList.split(",");
+          this.recipe = __recipe;
+          return;
+        }
+
+        // check my Family's recipe
+      }
+      try {
+        response = await this.axios.get(
+          "http://localhost:3000/recipes/recipeInfo",
+          {
+            params: { recipe_id: this.$route.params.recipeId }
+          }
+        );
+
+        if (response.status !== 200) {
+          this.$router.replace("/NotFound");
+        }
       } catch (error) {
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
@@ -81,15 +146,20 @@ export default {
       }
 
       let {
-        analyzedInstructions,
-        instructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
+        recipe_id,
+        recipeName,
         image,
-        title,
-        MealsQuantity
-      } = response.data.recipe;
+        coockingTime,
+        numberOfLikes,
+        instructions,
+        isVegan,
+        isVegeterian,
+        isGlutenFree,
+        IngredientList,
+        MealsQuantity,
+        extendedIngredients,
+        analyzedInstructions
+      } = response.data.data;
 
       let _instructions = analyzedInstructions
         .map(fstep => {
@@ -99,16 +169,20 @@ export default {
         .reduce((a, b) => [...a, ...b], []);
 
       let _recipe = {
+        recipe_id,
+        recipeName,
+        image,
+        coockingTime,
+        numberOfLikes,
         instructions,
         _instructions,
-        analyzedInstructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
-        image,
-        title
+        isVegan,
+        isVegeterian,
+        isGlutenFree,
+        IngredientList,
+        MealsQuantity,
+        extendedIngredients
       };
-
       this.recipe = _recipe;
     } catch (error) {
       console.log(error);

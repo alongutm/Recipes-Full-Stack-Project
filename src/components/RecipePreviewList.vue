@@ -5,7 +5,7 @@
       <slot></slot>
     </h3>
     <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+      <b-col v-for="r in recipes" :key="r.recipe_id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
@@ -37,11 +37,12 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          "https://test-for-3-2.herokuapp.com/recipes/random"
+          "http://localhost:3000/recipes/randomRecipes"
+          //   "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
-        // console.log(response);
-        const recipes = response.data.recipes;
+        //console.log(response);
+        const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
@@ -55,22 +56,22 @@ export default {
         const response = await this.axios.get(
           "http://localhost:3000/profiles/myFavorites"
         );
-        // console.log(response);
-        const recipes = response.data.recipes;
+        const recipes = response.data.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        console.log(this.recipes);
+        //consolconsole.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
     },
     async myRecipes() {
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
-          "https://test-for-3-2.herokuapp.com/recipes/random"
+          "http://localhost:3000/profiles/myRecipes"
         );
         // console.log(response);
-        const recipes = response.data.recipes;
+        const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
         console.log(this.recipes);
@@ -80,6 +81,7 @@ export default {
     },
     async myFamilyRecipes() {
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
           "https://test-for-3-2.herokuapp.com/recipes/random"
         );
