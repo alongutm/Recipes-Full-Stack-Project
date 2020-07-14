@@ -2,9 +2,16 @@
   <div>
     for up to {{ recipe.MealsQuantity}} meals
     <b-list-group horizontal>
-      <b-list-group-item v-if="recipe.isVegan">vegan</b-list-group-item>
-      <b-list-group-item v-if="recipe.isVegeterian">vegeterian</b-list-group-item>
-      <b-list-group-item v-if="recipe.isGlutenFree">glutten free</b-list-group-item>
+      <div v-if="recipe.isVegan"></div>
+      <b-list-group-item v-if="recipe.isVegan">
+        <img src="https://img.icons8.com/android/24/000000/carrot.png" />
+      </b-list-group-item>
+      <b-list-group-item v-else-if="recipe.isVegeterian">
+        <img src="https://img.icons8.com/ios-filled/24/000000/vegetarian-mark--v1.png" />
+      </b-list-group-item>
+      <b-list-group-item v-if="recipe.isGlutenFree">
+        <img src="https://img.icons8.com/windows/24/000000/no-gluten.png" />
+      </b-list-group-item>
       <b-list-group-item>
         {{recipe.numberOfLikes}}
         <b-icon icon="hand-thumbs-up"></b-icon>
@@ -21,7 +28,7 @@
         <b-icon icon="check-all"></b-icon>
       </b-list-group-item>
       <b-list-group-item>
-        <b-icon icon="stopwatch"></b-icon>
+        <img src="https://img.icons8.com/windows/32/000000/time.png" />
         {{recipe.coockingTime}} minutes
       </b-list-group-item>
     </b-list-group>
