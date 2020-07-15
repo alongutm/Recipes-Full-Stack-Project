@@ -8,23 +8,28 @@
       <b-form-select v-model="selectedAmount" id="amount" :options="searchSizes" ></b-form-select>
       <b>Cuisine:</b>
       <b-form-select v-model="selectedCuisine" id="cuisine" :options="cuisines"></b-form-select>
-      <div class="mt-2">Value: {{ selectedCuisine }}</div>
       <b>Diet:</b>
       <b-form-select v-model="selectedDiet" id="diet" :options="diets"  ></b-form-select>
       <b>Intolerance:</b>
       <b-form-select v-model="selectedIntolerance" id="intolerance" :options="intolerances"></b-form-select>
-      <b-button :disabled="query.length == 0" size="lg" type="submit" block variant="primary">search</b-button>
+      <b-button :disabled="query.length == 0" size="lg" type="submit" block variant="primary">Search</b-button>
       <!-- <b-form-group label="Sort the results:" v-if="responsed_recipes.length != 0">
         <b-form-radio-group name="radio-button" v-model="selected_sorts" :options="sorts" switches></b-form-radio-group>
         <b-button variant="secondary" @click="sortHandle">Sort!</b-button>
       </b-form-group> -->
     </b-form>
-    <RecipePreviewList
-          v-else
+    <div v-else> 
+      <b-button  size="lg"  block variant="primary" v-on:click="newSearch">New Search</b-button>
+      <h2 v-if="emptyResults"> The Search Returned No Results </h2>
+
+      <RecipePreviewList
+          v-if="!emptyResults"
           ref="RecipePreviewList"
-          title="Explore These Recipes"
+          title="Search Results"
           class="RandomRecipes center"
-        />
+      >
+    </RecipePreviewList>
+    </div>  
   </div>
 </template>
 
@@ -33,7 +38,7 @@ import RecipePreviewList from "../components/RecipePreviewList";
 
 export default {
   components: {
-
+    RecipePreviewList
   },
   data () {
     return{
@@ -43,6 +48,7 @@ export default {
     selectedCuisine: null,
     selectedIntolerance: null,
     selectedDiet: null,
+    emptyResults: false,
     cuisines: [
         'African',
         'American',
@@ -109,19 +115,13 @@ export default {
       this.searched = true;
       console.log("functionn search!");
       try {
-        let cuisineString = "";
-        if(this.selectedCuisine != null){
-          console.log("");
-          cuisineString = "?cuisine=" + this.selectedCuisine;
 
-        }
-        console.log("cuisine string is " + cuisineString);
         console.log("########################## #########");
-        console.log(`/search/query/${this.query}/amount/${this.selectedAmount}` + cuisineString);
         let endPoint = "recipes/";
         if(this.$root.store.username){
           endPoint ="profiles/";
         }
+        console.log(`http://localhost:3000/${endPoint}/search/query/${this.query}/amount/${this.selectedAmount}`);
         const response = 
         await this.axios.get(`http://localhost:3000/${endPoint}/search/query/${this.query}/amount/${this.selectedAmount}` , 
         {
@@ -134,6 +134,17 @@ export default {
           }
         });
       //show recipes with component
+      console.log(response);
+      console.log("####################################3");
+      console.log(response.data.recipes);
+      const recipesArr = response.data.recipes;
+      if(typeof recipesArr !== 'undefined' && recipesArr.length > 0 ){
+        this.$refs.RecipePreviewList.searchRecipes(response.data.recipes);
+      }
+      else{
+        this.emptyResults = true;
+      }
+
 
       }
 
@@ -141,6 +152,13 @@ export default {
         console.log(error);
       }
 
+    },
+    newSearch(){
+      this.searched = false;
+      this.selectedDiet = null;
+      this.selectedCuisine = null;
+      this.selectedIntolerance = null;
+      this.emptyResults = false;
     }
     
   }
