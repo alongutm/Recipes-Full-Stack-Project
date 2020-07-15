@@ -32,14 +32,20 @@
     <div class="mt-4">
       {{ recipes[slide].recipeName }}
       <br />
-      <b-icon icon="stopwatch"></b-icon>
+      <img src="https://img.icons8.com/windows/32/000000/time.png" />
       {{recipes[slide].coockingTime}} minutes
       <br />
       {{recipes[slide].numberOfLikes}}
       <b-icon icon="hand-thumbs-up"></b-icon>
-      <div v-if="recipes[slide].isVegan">vegan</div>
-      <div v-if="recipes[slide].isVegeterian">vegeterian</div>
-      <div v-if="recipes[slide].isGlutenFree">glutten free</div>
+      <div v-if="recipes[slide].isVegan">
+        <img src="https://img.icons8.com/android/24/000000/carrot.png" />
+      </div>
+      <div v-else-if="recipes[slide].isVegeterian">
+        <img src="https://img.icons8.com/ios-filled/24/000000/vegetarian-mark--v1.png" />
+      </div>
+      <div v-if="recipes[slide].isGlutenFree">
+        <img src="https://img.icons8.com/windows/24/000000/no-gluten.png" />
+      </div>
     </div>
     <!-- <b-icon icon="stopwatch"></b-icon> {{recipes[slide].readyInMinutes}} minutes -->
   </div>
