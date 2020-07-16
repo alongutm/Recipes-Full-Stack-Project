@@ -47,8 +47,13 @@
         >New Search</b-button
       >
       <h2 v-if="emptyResults">The Search Returned No Results</h2>
-      <div v-if="radioBoxes">
-        <b-form-group label="Sorting Criteria">
+      <div v-if="!emptyResults">
+        <span class="firstLabel">
+         <label class="radio-inline">
+        <b-form-group 
+        label="Sorting Criteria"
+        label-class="font-weight-bold pt-0"
+        >
           <b-form-radio-group
             v-model="selectedOption"
             :options="sortOptions"
@@ -56,7 +61,14 @@
             stacked
           ></b-form-radio-group>
         </b-form-group>
-        <b-form-group label="Sorting Order">
+        </label>
+        </span>
+         <span class="firstLabel">
+        <label class="radio-inline">
+        <b-form-group 
+        label="Sorting Order"
+        label-class="font-weight-bold pt-0"
+        >
           <b-form-radio-group
             v-model="selectedOrder"
             :options="sortOrder"
@@ -64,22 +76,28 @@
             stacked
           ></b-form-radio-group>
         </b-form-group>
+        </label>
+        </span>
+
         <b-button
           :disabled="!selectedOrder || !selectedOption"
           size="lg"
+          style="margin-bottom: 30px;"
           @click="handleSort"
-          variant="primary"
+          variant="info"
           >Sort</b-button
         >
       </div>
-
+<b-container class="container">
       <RecipePreviewList
         v-if="!emptyResults"
         ref="RecipePreviewList"
         title="Search Results"
-        class="RandomRecipes center"
+        class="RandomRecipes left"
       >
       </RecipePreviewList>
+</b-container>
+
     </div>
   </div>
 </template>

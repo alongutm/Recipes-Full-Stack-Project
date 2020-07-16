@@ -4,12 +4,13 @@
       {{ title }}
       <slot></slot>
     </h3>
-    <b-row>
-      <div v-for="r in recipes" :key="r.recipe_id">
-        <FamilyRecipePreview class="recipePreview" :recipe="r" />
-        <br>
-      </div>
-    </b-row>
+    <b-card-group deck>
+      <b-row>
+        <div v-for="r in recipes" :key="r.recipe_id">
+          <FamilyRecipePreview class="recipePreview" :recipe="r" />
+        </div>
+      </b-row>
+    </b-card-group>
   </b-container>
 </template>
 

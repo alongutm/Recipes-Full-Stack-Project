@@ -120,7 +120,7 @@ export default {
         //this.wrongLogin = true;
         this.form.username = "";
         this.form.password = "";
-        this.$root.toast('Login Failed due to wrong authentication', 'Login Failed','danger');
+        this.$root.toast('Login Failed', 'Login Failed due to wrong authentication','danger');
     
 
       }

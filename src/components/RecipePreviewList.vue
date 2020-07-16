@@ -4,11 +4,19 @@
       {{ title }}
       <slot></slot>
     </h3>
-    <b-row>
-      <div v-for="r in recipes" :key="r.recipe_id">
+    <!-- <b-row>
+     <b-col v-for="r in recipes" :key="r.recipe_id">
         <RecipePreview class="recipePreview" :recipe="r" />
-      </div>
-    </b-row>
+      </b-col>
+    </b-row>-->
+
+    <b-card-group deck>
+      <b-row>
+        <div v-for="r in recipes" :key="r.recipe_id">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </div>
+      </b-row>
+    </b-card-group>
   </b-container>
 </template>
 
@@ -96,7 +104,7 @@ export default {
         console.log(error);
       }
     },
-    searchRecipes(recipesArray){  
+    searchRecipes(recipesArray) {
       this.recipes = [];
       console.log(recipesArray);
       this.recipes.push(...recipesArray);

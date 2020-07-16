@@ -77,7 +77,7 @@ export default {
           }
         );
         // check in My Recipes
-        
+
         const response = await this.axios.get(
           "http://localhost:3000/profiles/myRecipes"
         );
@@ -126,8 +126,6 @@ export default {
           this.recipe = __recipe;
           return;
         }
-
-        
       }
       try {
         response = await this.axios.get(
@@ -177,6 +175,7 @@ export default {
         numberOfLikes,
         instructions,
         _instructions,
+        analyzedInstructions,
         isVegan,
         isVegeterian,
         isGlutenFree,
@@ -185,6 +184,7 @@ export default {
         extendedIngredients
       };
       this.recipe = _recipe;
+      console.log(this.recipe.analyzedInstructions);
     } catch (error) {
       console.log(error);
     }
