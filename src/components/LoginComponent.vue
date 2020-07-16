@@ -5,6 +5,15 @@
         Login
         <slot></slot>
       </h3>
+      <b-alert
+      v-model="wrongLogin"
+      class="position-fixed fixed-top m-0 rounded-0"
+      style="z-index: 2000;"
+      variant="danger"
+      dismissible
+    >
+      Login Failed!
+    </b-alert>
       <b-form @submit.prevent="onLogin">
         <b-form-group
           id="input-group-Username"
@@ -70,8 +79,9 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined
-      }
+        submitError: undefined,
+      },
+      wrongLogin: false
     };
   },
   validations: {
@@ -106,6 +116,13 @@ export default {
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
+        //add error message
+        //this.wrongLogin = true;
+        this.form.username = "";
+        this.form.password = "";
+        this.$root.toast('Login Failed due to wrong authentication', 'Login Failed','danger');
+    
+
       }
     },
     onLogin() {
@@ -113,6 +130,8 @@ export default {
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
+        // this.username = "";
+        // this.password = "";
         return;
       }
       // console.log("login method go");
