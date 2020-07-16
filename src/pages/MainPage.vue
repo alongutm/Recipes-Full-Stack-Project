@@ -5,9 +5,10 @@
         <RecipePreviewList
           ref="RecipePreviewList"
           title="Explore These Recipes"
-          class="RandomRecipes center"
+          class="RandomRecipes left"
         />
-        <b-button block variant="dark" @click="updateRecipes">More Recipes</b-button>
+        <br />
+        <b-button block variant="dark" @click="updateRecipes">Load More Recipes</b-button>
       </b-col>
 
       <b-col cols="4" md="4" right>
@@ -16,7 +17,6 @@
           ref="LastWatchedPreview"
           title="Last Watched"
           class="Last Watched"
-         
         />
         <LoginComponent v-else />
       </b-col>
@@ -47,15 +47,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.RandomRecipes {
-  margin: 10px 0 10px;
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
-}
+
+
 </style>
