@@ -77,7 +77,7 @@ export default {
         const response = await this.axios.get(
           "http://localhost:3000/profiles/lastWatched"
         );
-        //console.log(response.data);
+        console.log(response.data);
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
