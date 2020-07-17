@@ -93,13 +93,13 @@ export default {
         const response = await this.axios.get(
           "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-        console.log("@@@@@@recipePreviewList line 88");
-        console.log(response);
-        console.log(response.data.recipes);
+        // console.log("@@@@@@recipePreviewList line 88");
+        // console.log(response);
+        // console.log(response.data.recipes);
         const recipes = response.data.recipes;
         this.recipes = [];
         this.recipes.push(...recipes);
-        console.log(this.recipes);
+        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

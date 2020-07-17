@@ -2,32 +2,102 @@
   <div class="container">
     <h1 class="title">Search Recipes</h1>
     <b-form v-if="!searched" @submit.prevent="search">
-      <b-form-input v-model="query" id="query" placeholder="Enter your query here" required></b-form-input>
+      <b-form-input
+        v-model="query"
+        id="query"
+        placeholder="Enter your query here"
+        required
+      ></b-form-input>
       <!-- <div class="mt-2">Value: {{ query }}</div> -->
       <b>Number of results:</b>
-      <b-form-select v-model="selectedAmount" id="amount" :options="searchSizes"></b-form-select>
+      <b-form-select
+        v-model="selectedAmount"
+        id="amount"
+        :options="searchSizes"
+      ></b-form-select>
       <b>Cuisine:</b>
-      <b-form-select v-model="selectedCuisine" id="cuisine" :options="cuisines"></b-form-select>
+      <b-form-select
+        v-model="selectedCuisine"
+        id="cuisine"
+        :options="cuisines"
+      ></b-form-select>
       <b>Diet:</b>
-      <b-form-select v-model="selectedDiet" id="diet" :options="diets"></b-form-select>
+      <b-form-select
+        v-model="selectedDiet"
+        id="diet"
+        :options="diets"
+      ></b-form-select>
       <b>Intolerance:</b>
-      <b-form-select v-model="selectedIntolerance" id="intolerance" :options="intolerances"></b-form-select>
-      <b-button :disabled="query.length == 0" size="lg" type="submit" block variant="primary">Search</b-button>
-      <!-- <b-form-group label="Sort the results:" v-if="responsed_recipes.length != 0">
-        <b-form-radio-group name="radio-button" v-model="selected_sorts" :options="sorts" switches></b-form-radio-group>
-        <b-button variant="secondary" @click="sortHandle">Sort!</b-button>
-      </b-form-group>-->
+      <b-form-select
+        v-model="selectedIntolerance"
+        id="intolerance"
+        :options="intolerances"
+      ></b-form-select>
+      <b-button
+        :disabled="query.length == 0"
+        size="lg"
+        type="submit"
+        block
+        variant="primary"
+        >Search</b-button
+      >
     </b-form>
     <div v-else>
-      <b-button size="lg" block variant="primary" v-on:click="newSearch">New Search</b-button>
+      <b-button size="lg" block variant="primary" v-on:click="newSearch"
+        >New Search</b-button
+      >
       <h2 v-if="emptyResults">The Search Returned No Results</h2>
+      <div v-if="!emptyResults">
+        <span class="firstLabel">
+         <label class="radio-inline">
+        <b-form-group 
+        label="Sorting Criteria"
+        label-class="font-weight-bold pt-0"
+        >
+          <b-form-radio-group
+            v-model="selectedOption"
+            :options="sortOptions"
+            name="radios-stacked"
+            stacked
+          ></b-form-radio-group>
+        </b-form-group>
+        </label>
+        </span>
+         <span class="firstLabel">
+        <label class="radio-inline">
+        <b-form-group 
+        label="Sorting Order"
+        label-class="font-weight-bold pt-0"
+        >
+          <b-form-radio-group
+            v-model="selectedOrder"
+            :options="sortOrder"
+            name="radios-stacked2"
+            stacked
+          ></b-form-radio-group>
+        </b-form-group>
+        </label>
+        </span>
 
+        <b-button
+          :disabled="!selectedOrder || !selectedOption"
+          size="lg"
+          style="margin-bottom: 30px;"
+          @click="handleSort"
+          variant="info"
+          >Sort</b-button
+        >
+      </div>
+<b-container class="container">
       <RecipePreviewList
         v-if="!emptyResults"
         ref="RecipePreviewList"
         title="Search Results"
-        class="RandomRecipes center"
-      ></RecipePreviewList>
+        class="RandomRecipes left"
+      >
+      </RecipePreviewList>
+</b-container>
+
     </div>
   </div>
 </template>
@@ -37,7 +107,7 @@ import RecipePreviewList from "../components/RecipePreviewList";
 
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
   },
   data() {
     return {
@@ -48,6 +118,7 @@ export default {
       selectedIntolerance: null,
       selectedDiet: null,
       emptyResults: false,
+      radioBoxes: false,
       cuisines: [
         "African",
         "American",
@@ -75,7 +146,7 @@ export default {
         "Southern",
         "Spanish",
         "Thai",
-        "Vietnamese"
+        "Vietnamese",
       ],
       intolerances: [
         "Dairy",
@@ -89,7 +160,7 @@ export default {
         "Soy",
         "Sulfite",
         "Tree Nut",
-        "Wheat"
+        "Wheat",
       ],
       diets: [
         "Gluten Free",
@@ -101,9 +172,14 @@ export default {
         "Pescetarian",
         "Paleo",
         "Primal",
-        "Whole30"
+        "Whole30",
       ],
-      searchSizes: [5, 10, 15]
+      searchSizes: [5, 10, 15],
+      sortOptions: ["Popularity", "Preparation Time"],
+      sortOrder: ["Descending", "Ascending"],
+      selectedOption: null,
+      selectedOrder: null,
+      returnedRecipes: [],
     };
   },
   methods: {
@@ -112,9 +188,9 @@ export default {
       console.log("functionn search!");
       try {
         console.log("########################## #########");
-        let endPoint = "recipes/";
+        let endPoint = "recipes";
         if (this.$root.store.username) {
-          endPoint = "profiles/";
+          endPoint = "profiles";
         }
         console.log(
           `http://localhost:3000/${endPoint}/search/query/${this.query}/amount/${this.selectedAmount}`
@@ -131,17 +207,24 @@ export default {
               ...(this.selectedIntolerance
                 ? { intolerances: this.selectedIntolerance }
                 : {}),
-              ...(this.selectedDiet ? { diet: this.selectedDiet } : {})
-            }
+              ...(this.selectedDiet ? { diet: this.selectedDiet } : {}),
+            },
           }
         );
         //show recipes with component
         console.log(response);
         console.log("####################################3");
-        console.log(response.data.recipes);
-        const recipesArr = response.data.recipes;
-        if (typeof recipesArr !== "undefined" && recipesArr.length > 0) {
-          this.$refs.RecipePreviewList.searchRecipes(response.data.recipes);
+        console.log(response.data);
+        let recipesArr;
+        if (endPoint == "recipes") {
+          recipesArr = response.data.recipes;
+        } else {
+          recipesArr = response.data;
+        }
+        if (typeof response !== "undefined" && recipesArr.length > 0) {
+          this.returnedRecipes = recipesArr;
+          this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
+          this.radioBoxes = true;
         } else {
           this.emptyResults = true;
         }
@@ -155,10 +238,52 @@ export default {
       this.selectedCuisine = null;
       this.selectedIntolerance = null;
       this.emptyResults = false;
-    }
-  }
+      this.radioBoxes = false;
+      this.selectedOption = null;
+      this.selectedOrder = null;
+      this.returnedRecipes = [];
+    },
+    sortAscendingOrderByPopularity() {
+      this.returnedRecipes.sort(function(a, b) {
+        return a.numberOfLikes - b.numberOfLikes;
+      });
+      this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
+    },
+    sortAscendingOrderByTime() {
+      this.returnedRecipes.sort(function(a, b) {
+        return a.coockingTime - b.coockingTime;
+      });
+      this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
+    },
+    sortDescendingOrderByPopularity() {
+      this.returnedRecipes.sort(function(a, b) {
+        return b.numberOfLikes - a.numberOfLikes;
+      });
+      this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
+    },
+    sortDescendingOrderByTime() {
+      this.returnedRecipes.sort(function(a, b) {
+        return b.coockingTime - a.coockingTime;
+      });
+      this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
+    },
+    handleSort() {
+      if (this.selectedOrder == "Descending") {
+        if (this.selectedOption == "Popularity") {
+          this.sortDescendingOrderByPopularity();
+        } else {
+          this.sortDescendingOrderByTime();
+        }
+      } else {
+        if (this.selectedOption == "Popularity") {
+          this.sortAscendingOrderByPopularity();
+        } else {
+          this.sortAscendingOrderByTime();
+        }
+      }
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
