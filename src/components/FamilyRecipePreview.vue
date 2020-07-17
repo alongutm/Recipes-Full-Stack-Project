@@ -195,29 +195,3 @@ export default {
 }
 </style>
 
-
-    <!-- <b-card no-body style="max-width: 15rem; height: 30rem;" img-alt="Image" img-top>
-      <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }"
-        class="recipe-preview"
-      >
-        <b-card-img :src="recipe.image" height="150rem" width="50rem"></b-card-img>
-        <template v-slot:header>
-          <h4 class="mb-0"></h4>
-        </template>
-        <b-card-body>
-        </b-card-body>
-      </router-link>
-
-      <b-card-footer>
-        {{recipe.numberOfLikes}}
-        <b-icon icon="hand-thumbs-up"></b-icon>
-        <b-icon v-if="recipe.isFavorite" icon="heart-fill"></b-icon>
-        <b-button variant="light" @click="saveToFavorites" v-else>
-          <b-icon icon="heart"></b-icon>
-        </b-button>
-        <div v-if="recipe.isSeen">
-          <b-icon icon="check-all"></b-icon>
-        </div>
-      </b-card-footer>
-    </b-card> -->

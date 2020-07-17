@@ -17,7 +17,7 @@
           <b-col align-self="end">
             <b-button
               block
-              to="/PrepareRecipe"
+              :to="{ name: 'prepareRecipe', params: { recipeId: recipe.recipe_id } }"
               variant="dark"
               size="lg"
             >Wanna make this dish? Click here!</b-button>
