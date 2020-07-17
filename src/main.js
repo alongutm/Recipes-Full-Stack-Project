@@ -74,6 +74,7 @@ Vue.config.productionTip = false;
 
 const shared_data = {
   username: localStorage.username,
+  recipeProgress: localStorage.recipeProgress,
 
   login(username) {
     localStorage.setItem("username", username);
@@ -88,11 +89,10 @@ const shared_data = {
     this.username = undefined;
     this.recipeProgress = undefined;
   },
-  recipeProgress: localStorage.recipeProgress,
-  saveRecipeProgress(recipeProgress) {
+  saveRecipeProgress(recipeProgress, item) {
     this.recipeProgress = recipeProgress;
-    localStorage.setItem("recipeProgress", JSON.stringify(this.recipeProgress));
-    console.log("recipeProgress", this.recipeProgress);
+    localStorage.setItem(item, JSON.stringify(this.recipeProgress));
+    console.log(JSON.parse(localStorage.getItem(item)));
   },
 };
 console.log(shared_data);

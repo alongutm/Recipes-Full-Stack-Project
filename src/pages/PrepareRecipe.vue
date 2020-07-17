@@ -4,12 +4,7 @@
     <b-img rounded alt="Rounded image" :src="recipe.image" class="center" />
     <div v-if="recipe._instructions" class="center">
       <div v-for="s in recipe._instructions" :key="s.number">
-        <b-form-checkbox
-          size="lg"
-          :checked="myRecipeProgress[s.number]==true"
-          v-model="myRecipeProgress[s.number]"
-          @change="setChanged()"
-        >
+        <b-form-checkbox size="lg" v-model="recipeProgress[s.number]" @change="setChanged">
           <b-card-group>
             <b-card>
               <h5>Step #{{s.number}}:</h5>
@@ -26,6 +21,27 @@
           </b-card-group>
         </b-form-checkbox>
       </div>
+    </div>
+
+    <div v-if="recipe.IngredientList" class="center">
+      <b-form-checkbox size="lg" v-model="recipeProgress" @change="setChanged">
+        <b-card-group>
+          <b-card>
+            <h5>Ingredients:</h5>
+            <b-list-group width="50rem">
+              <b-list-group-item v-for="(r, index) in recipe.IngredientList" :key="index + '_' + r">
+                <b-icon icon="egg-fried"></b-icon>
+                {{ r }}
+              </b-list-group-item>
+            </b-list-group>
+            <h5>Instruction:</h5>
+            <b-card>
+              <b-icon icon="egg-fried"></b-icon>
+              {{recipe.Instructions}}
+            </b-card>
+          </b-card>
+        </b-card-group>
+      </b-form-checkbox>
     </div>
   </b-container>
 </template>
@@ -45,22 +61,20 @@ export default {
   data() {
     return {
       recipe: null,
-      myRecipeProgress: []
-      // recipeProgress: []
+      recipeProgress: [],
+      IngredientList: []
     };
   },
 
   methods: {
-    setChanged(checked) {
-      // const recipeProgress = JSON.parse(localStorage.getItem("recipeProgress"));
-      // recipeProgress[this.recipe.recipe_id] = this.myRecipeProgress;
-      // console.log(recipeProgress);
-      // this.$root.store.saveRecipeProgress(recipeProgress);
-      // const _recipeProgress = JSON.parse(
-      //   localStorage.getItem("recipeProgress")
-      // );
-      // console.log("well");
-      // console.log(_recipeProgress);
+    setChanged() {
+      console.log("changing!");
+      this.$root.store.saveRecipeProgress(
+        this.recipeProgress,
+        `recipeProgress${this.recipe.recipe_id}`
+      );
+
+      console.log(this.recipeProgress);
     }
   },
   async created() {
@@ -113,6 +127,7 @@ export default {
             extendedIngredients,
             analyzedInstructions
           };
+          this.IngredientList = IngredientList.split(",");
           __recipe.IngredientList = IngredientList.split(",");
           this.recipe = __recipe;
           return;
@@ -175,21 +190,18 @@ export default {
       };
       this.recipe = _recipe;
 
-      // let recipeProgress = JSON.parse(localStorage.getItem("recipeProgress"));
-      // console.log(recipeProgress);
-      // if (recipeProgress == undefined) {
-      //   console.log(true);
-      //   this.recipeProgress = [];
-      //   this.$root.store.saveRecipeProgress(this.recipeProgress);
-      // }
-      // if (recipeProgress[this.recipe.recipe_id] == undefined) {
-      //   console.log("im here 2");
-
-      //   this.myRecipeProgress = [];
-      // } else {
-      //   console.log("im here 3");
-      //   this.myRecipeProgress.push(...recipeProgress[this.recipe.recipe_id]);
-      // }
+      this.recipeProgress = JSON.parse(
+        localStorage.getItem(`recipeProgress${this.recipe.recipe_id}`)
+      );
+      if (this.recipeProgress == undefined) {
+        console.log(true);
+        this.recipeProgress = [];
+        this.$root.store.saveRecipeProgress(
+          this.recipeProgress,
+          `recipeProgress${this.recipe.recipe_id}`
+        );
+      }
+      console.log("recipe progrees after uploading", this.recipeProgress);
     } catch (error) {
       console.log(error);
     }

@@ -10,8 +10,18 @@
         />
         {{i.name}}
       </b-list-group-item>
-    </b-list-group>
 
+
+      <div v-if="extendedIngredients">
+        <b-list-group-item
+          v-for="(r, index) in recipe.extendedIngredients"
+          :key="index + '_' + r.id"
+        >
+          <b-icon icon="egg-fried"></b-icon>
+          {{ r.original }}
+        </b-list-group-item>
+      </div>
+    </b-list-group>
   </div>
 </template>
 
@@ -20,6 +30,14 @@ export default {
   name: "IngredientsItem",
   props: {
     ingredients: {
+      type: Array,
+      required: false
+    },
+    IngredientList: {
+      type: Array,
+      required: false
+    },
+    extendedIngredients: {
       type: Array,
       required: false
     }
