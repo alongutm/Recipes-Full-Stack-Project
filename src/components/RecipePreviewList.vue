@@ -61,13 +61,19 @@ export default {
     async myFavoriteRecipes() {
       try {
         this.axios.defaults.withCredentials = true;
+        console.log("recipePreviewList line 64 " + this.$route.params.recipeId);
         const response = await this.axios.get(
-          "http://localhost:3000/profiles/myFavorites"
+          "http://localhost:3000/profiles/myFavorites",
+          {
+            params: { 
+                      recipe_id: this.$route.params.recipeId
+                    }
+          }
         );
         const recipes = response.data.data;
+        console.log(this.recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
-        //consolconsole.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>
+      <h1 id="about">
           About Us
       </h1>
       <b-carousel
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style>
-h1 { color: #4188f3; 
+#about { color: #4188f3; 
 font-family: 'Rouge Script', cursive; 
 font-size: 110px; 
 font-weight: normal; 

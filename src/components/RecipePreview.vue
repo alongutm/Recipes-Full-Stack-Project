@@ -34,16 +34,18 @@
       </b-list-group>
     </b-card-footer>
     <b-card-footer>
-      <b-icon icon="hand-thumbs-up"></b-icon>
+      <div>
+      <img src="https://img.icons8.com/dusk/24/000000/facebook-like.png" style="margin-bottom:9px;"/>
       {{recipe.numberOfLikes}}
       <div v-if="$root.store.username">
-        <b-icon v-if="recipe.isFavorite" icon="heart-fill"></b-icon>
-        <b-button v-else variant="light" @click="saveToFavorites">
-          <b-icon icon="heart"></b-icon>
+        <img v-if="recipe.isFavorite" src="https://img.icons8.com/cotton/34/000000/like--v1.png"/>
+        <b-button v-if="!recipe.isFavorite" variant="light" @click="saveToFavorites">
+          <b-icon icon="heart" ></b-icon>
         </b-button>
       </div>
       <div v-if="recipe.isSeen">
-        <b-icon icon="check-all"></b-icon>
+        <img src="https://img.icons8.com/offices/30/000000/visible.png" style="margin-left:0px;"/>
+      </div>
       </div>
     </b-card-footer>
   </b-card>
@@ -63,6 +65,9 @@ export default {
   mounted() {
     this.setFavorite();
   },
+  // created(){
+  //   console.log(this.recipe.recipe_id + " " + this.recipe.isSeen)
+  // },
   methods: {
     async setFavorite() {
       try {
@@ -75,6 +80,7 @@ export default {
             }
           );
           let id = response.data.data;
+          console.log("Line 81 RecipePreview  - id length is " + id.length );
           if (id.length > 0) {
             this.recipe.isFavorite = true;
           }
@@ -84,6 +90,7 @@ export default {
     async saveToFavorites() {
       try {
         this.axios.defaults.withCredentials = true;
+        console.log(this.recipe.recipe_id + " recipePreview line 90 !!!!!")
         const response = await this.axios.post(
           "http://localhost:3000/profiles/addFavorite",
           {

@@ -67,7 +67,7 @@ export default {
 
       //user is signed in
       if (this.$root.store.username) {
-        console.log("gggg");
+        console.log("gggg " + this.$route);
         this.axios.defaults.withCredentials = true;
         // add to last watched:
         const responseLastWatched = await this.axios.post(
@@ -77,7 +77,6 @@ export default {
           }
         );
         // check in My Recipes
-
         const response = await this.axios.get(
           "http://localhost:3000/profiles/myRecipes"
         );
@@ -124,8 +123,26 @@ export default {
 
           __recipe.IngredientList = IngredientList.split(",");
           this.recipe = __recipe;
+        console.log(this.recipe.recipe_id + " " + this.recipe.isSeen + " recipeViewPage Line 67");
           return;
         }
+        else{
+        console.log( "recipe id is " +this.$route.params.recipeId);
+        console.log("user name is " + this.$root.store.username)
+        //add to seen recipes
+        const response = await this.axios.post(
+          "http://localhost:3000/profiles/updateSeenRecipe", 
+          {
+            params: 
+            { 
+              recipe_id: this.$route.params.recipeId,
+              username: this.$root.store.username
+            }
+          }
+        );
+        console.log(response);
+        }
+
       }
       try {
         response = await this.axios.get(
