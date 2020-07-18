@@ -2,12 +2,12 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
-Vue.use(BootstrapVue)
-Vue.use(BootstrapVueIcons)
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
@@ -74,6 +74,8 @@ Vue.config.productionTip = false;
 
 const shared_data = {
   username: localStorage.username,
+  recipeProgress: localStorage.recipeProgress,
+
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -82,7 +84,15 @@ const shared_data = {
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
+    localStorage.removeItem("recipeProgress");
+
     this.username = undefined;
+    this.recipeProgress = undefined;
+  },
+  saveRecipeProgress(recipeProgress, item) {
+    this.recipeProgress = recipeProgress;
+    localStorage.setItem(item, JSON.stringify(this.recipeProgress));
+    console.log(JSON.parse(localStorage.getItem(item)));
   },
 };
 console.log(shared_data);
