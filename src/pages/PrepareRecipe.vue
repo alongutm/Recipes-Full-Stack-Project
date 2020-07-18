@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div v-if="recipe.IngredientList" class="center">
+    <div v-else-if="recipe.IngredientList" class="center">
       <b-form-checkbox size="lg" v-model="recipeProgress" @change="setChanged">
         <b-card-group>
           <b-card>
@@ -78,6 +78,7 @@ export default {
     }
   },
   async created() {
+    // location.load();
     try {
       let response;
       //user is signed in
