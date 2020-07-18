@@ -79,6 +79,7 @@ const shared_data = {
   mealPlanCounter: localStorage.mealPlanCounter,
 
   login(username) {
+    localStorage.clear();
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
@@ -102,12 +103,18 @@ const shared_data = {
     console.log(JSON.parse(localStorage.getItem(item)));
   },
   saveMealPlanList(mealPlanList) {
+    localStorage.removeItem("mealPlanList");
+
     this.mealPlanList = mealPlanList;
     localStorage.setItem("mealPlanList", JSON.stringify(this.mealPlanList));
     console.log("mealPlanList", this.mealPlanList);
 
     console.log(this.mealPlanCounter);
-    this.mealPlanCounter = parseInt(this.mealPlanCounter) + 1;
+    let tmpArr = [];
+    this.mealPlanList.map((recipe) => {
+      if (recipe != null) tmpArr.push(recipe);
+    });
+    this.mealPlanCounter = tmpArr.length;
     localStorage.setItem("mealPlanCounter", this.mealPlanCounter);
     console.log("mealPlanCounter", this.mealPlanCounter);
   },
