@@ -38,12 +38,12 @@
         size="lg"
         type="submit"
         block
-        variant="primary"
+        variant="dark"
         >Search</b-button
       >
     </b-form>
     <div v-else>
-      <b-button size="lg" block variant="primary" v-on:click="newSearch"
+      <b-button size="lg" block variant="dark" v-on:click="newSearch"
         >New Search</b-button
       >
       <h2 v-if="emptyResults">The Search Returned No Results</h2>

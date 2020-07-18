@@ -43,9 +43,13 @@ export default {
   // },
   methods: {
     async updateRecipes() {
+      let endPoint = "recipes";
+        if (this.$root.store.username) {
+          endPoint = "profiles";
+        }
       try {
         const response = await this.axios.get(
-          "http://localhost:3000/recipes/randomRecipes"
+          `http://localhost:3000/${endPoint}/randomRecipes`
           //   "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
@@ -61,13 +65,19 @@ export default {
     async myFavoriteRecipes() {
       try {
         this.axios.defaults.withCredentials = true;
+        console.log("recipePreviewList line 64 " + this.$route.params.recipeId);
         const response = await this.axios.get(
-          "http://localhost:3000/profiles/myFavorites"
+          "http://localhost:3000/profiles/myFavorites",
+          {
+            params: { 
+                      recipe_id: this.$route.params.recipeId
+                    }
+          }
         );
         const recipes = response.data.data;
+        console.log(this.recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
-        //consolconsole.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
