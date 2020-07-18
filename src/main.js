@@ -75,24 +75,48 @@ Vue.config.productionTip = false;
 const shared_data = {
   username: localStorage.username,
   recipeProgress: localStorage.recipeProgress,
+  mealPlanList: localStorage.mealPlanList,
+  mealPlanCounter: localStorage.mealPlanCounter,
 
   login(username) {
+    localStorage.clear();
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+
+    // set meal Plan counter
+    this.mealPlanCounter = 0;
+    localStorage.setItem("mealPlanCounter", mealPlanCounter);
   },
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
     localStorage.removeItem("recipeProgress");
-
+    localStorage.removeItem("mealPlanList");
     this.username = undefined;
     this.recipeProgress = undefined;
+    localStorage.clear();
   },
   saveRecipeProgress(recipeProgress, item) {
     this.recipeProgress = recipeProgress;
     localStorage.setItem(item, JSON.stringify(this.recipeProgress));
     console.log(JSON.parse(localStorage.getItem(item)));
+  },
+  saveMealPlanList(mealPlanList) {
+    localStorage.removeItem("mealPlanList");
+
+    this.mealPlanList = mealPlanList;
+    localStorage.setItem("mealPlanList", JSON.stringify(this.mealPlanList));
+    console.log("mealPlanList", this.mealPlanList);
+
+    console.log(this.mealPlanCounter);
+    let tmpArr = [];
+    this.mealPlanList.map((recipe) => {
+      if (recipe != null) tmpArr.push(recipe);
+    });
+    this.mealPlanCounter = tmpArr.length;
+    localStorage.setItem("mealPlanCounter", this.mealPlanCounter);
+    console.log("mealPlanCounter", this.mealPlanCounter);
   },
 };
 console.log(shared_data);

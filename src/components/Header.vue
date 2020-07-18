@@ -2,14 +2,18 @@
   <div id="header">
     <div>
       <b-navbar tabs toggleable="lg" type="dark" variant="dark">
-        <b-navbar-brand :to="{ name: 'main' }">CoockBook</b-navbar-brand>
+        <b-navbar-brand :to="{ name: 'main' }">CookBook</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item  :to="{ name: 'search' }">Search Recipe</b-nav-item>
-            <b-nav-item  :to="{ name: 'about' }">About</b-nav-item>
+            <b-nav-item :to="{ name: 'mealPlanningPage' }">
+              <b-icon icon="basket"></b-icon>
+              ({{itemsInBasket()}})
+            </b-nav-item>
+            <b-nav-item :to="{ name: 'search' }">Search Recipe</b-nav-item>
+            <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items for a signed in user -->
@@ -25,6 +29,8 @@
               <b-dropdown-item :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
               <b-dropdown-item :to="{ name: 'myFamilyRecipes' }">My Family's Recipes</b-dropdown-item>
               <b-dropdown-item :to="{ name: 'newRecipe' }">New Recipe</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'mealPlanningPage' }">My Meal Planner</b-dropdown-item>
+
               <b-dropdown-item @click="logout">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
 
@@ -49,7 +55,16 @@
 <script>
 export default {
   name: "Header",
+  mounted() {
+    this.itemsInBasket();
+  },
   methods: {
+    itemsInBasket() {
+      let mealPlanCounter = localStorage.getItem("mealPlanCounter");
+      if (mealPlanCounter == undefined) {
+        return 0;
+      } else return mealPlanCounter;
+    },
     logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "primary");

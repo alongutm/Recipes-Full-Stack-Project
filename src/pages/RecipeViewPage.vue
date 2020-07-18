@@ -20,7 +20,14 @@
               :to="{ name: 'prepareRecipe', params: { recipeId: recipe.recipe_id } }"
               variant="dark"
               size="lg"
+              @click="addToMealPlan"
             >Wanna make this dish? Click here!</b-button>
+            <b-button
+              block
+              variant="dark"
+              size="lg"
+              @click="addToMealPlanandAndReload"
+            >Add the recipe to your next meal!</b-button>
           </b-col>
         </b-row>
 
@@ -50,6 +57,8 @@
 import Ingredients from "../components/Ingredients";
 import Instructions from "../components/Instructions";
 import RecipeDetails from "../components/RecipeDetails";
+import Header from "../components/Header";
+
 export default {
   components: {
     Ingredients,
@@ -59,8 +68,25 @@ export default {
   data() {
     return {
       recipe: null,
-      isFavorite: false
+
+      mealPlanList: []
     };
+  },
+  methods: {
+    addToMealPlanandAndReload() {
+      this.addToMealPlan();
+      location.reload();
+    },
+    addToMealPlan() {
+      this.mealPlanList = JSON.parse(localStorage.getItem("mealPlanList"));
+      if (this.mealPlanList == undefined) {
+        this.mealPlanList = [];
+      }
+      if (!this.mealPlanList.includes(this.recipe.recipe_id)) {
+        this.mealPlanList[this.recipe.recipe_id] = this.recipe;
+        this.$root.store.saveMealPlanList(this.mealPlanList);
+      }
+    }
   },
   async created() {
     try {
@@ -68,7 +94,9 @@ export default {
 
       //user is signed in
       if (this.$root.store.username) {
-        console.log("gggg " + this.$route);
+
+        // console.log("gggg");
+
         this.axios.defaults.withCredentials = true;
         // add to last watched:
         const responseLastWatched = await this.axios.post(
@@ -268,7 +296,7 @@ let {
         extendedIngredients
       };
       this.recipe = _recipe;
-      console.log(this.recipe.analyzedInstructions);
+      //    console.log(this.recipe.analyzedInstructions);
     } catch (error) {
       console.log(error);
     }
