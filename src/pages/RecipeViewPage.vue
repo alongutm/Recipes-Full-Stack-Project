@@ -17,7 +17,7 @@
           <b-col align-self="end">
             <b-button
               block
-              :to="{ name: 'c', params: { recipeId: recipe.recipe_id } }"
+              :to="{ name: 'prepareRecipe', params: { recipeId: recipe.recipe_id } }"
               variant="dark"
               size="lg"
               @click="addToMealPlan"
@@ -27,7 +27,7 @@
               variant="dark"
               size="lg"
               @click="addToMealPlanandAndReload"
-            >Add the recipe to tour next meal!</b-button>
+            >Add the recipe to your next meal!</b-button>
           </b-col>
         </b-row>
 

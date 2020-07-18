@@ -45,10 +45,10 @@ export default {
         localStorage.getItem(`recipeProgress${this.recipe.recipe_id}`)
       );
       if (progress == undefined) {
-        console.log(progress.length);
+      //  console.log(progress.length);
         this.value = 0;
       } else {
-        console.log(progress.length);
+      //  console.log(progress.length);
         this.value = progress.length;
       }
     }
