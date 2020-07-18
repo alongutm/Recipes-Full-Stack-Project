@@ -58,7 +58,8 @@ export default {
   },
   data() {
     return {
-      recipe: null
+      recipe: null,
+      isFavorite: false
     };
   },
   async created() {
@@ -123,10 +124,10 @@ export default {
 
           __recipe.IngredientList = IngredientList.split(",");
           this.recipe = __recipe;
-        console.log(this.recipe.recipe_id + " " + this.recipe.isSeen + " recipeViewPage Line 67");
+          console.log(this.recipe.recipe_id + " " + this.recipe.isSeen + " recipeViewPage Line 67");
           return;
         }
-        else{
+        else{ //user logged in and recipe isn't from myRecipes
         console.log( "recipe id is " +this.$route.params.recipeId);
         console.log("user name is " + this.$root.store.username)
         //add to seen recipes
@@ -140,10 +141,73 @@ export default {
             }
           }
         );
-        console.log(response);
+        //update this recipe with all fields
+         const response2 = await this.axios.get(
+          "http://localhost:3000/profiles/recipeById",
+          {
+            params: { recipe_id: this.$route.params.recipeId }
+          }
+        );
+        
+        console.log(response2.data[0]);
+let {
+        recipe_id,
+        recipeName,
+        image,
+        coockingTime,
+        numberOfLikes,
+        instructions,
+        isVegan,
+        isVegeterian,
+        isGlutenFree,
+        IngredientList,
+        MealsQuantity,
+        isFavorite,
+        extendedIngredients,
+        analyzedInstructions
+      } = response2.data[0];
+      console.log(analyzedInstructions);
+      console.log(recipe_id);
+      let _instructions = analyzedInstructions
+        .map(fstep => {
+          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+          return fstep.steps;
+        })
+        .reduce((a, b) => [...a, ...b], []);
+
+      let _recipe = {
+        recipe_id,
+        recipeName,
+        image,
+        coockingTime,
+        numberOfLikes,
+        instructions,
+        _instructions,
+        analyzedInstructions,
+        isVegan,
+        isVegeterian,
+        isGlutenFree,
+        IngredientList,
+        MealsQuantity,
+        isFavorite,
+        extendedIngredients
+      };
+      this.recipe = _recipe;
+
+
+
+
+
         }
+       // this.isFavorite = response2.data.isFavorite;
+
+        //add 
+
+
 
       }
+      else{
+         //guest
       try {
         response = await this.axios.get(
           "http://localhost:3000/recipes/recipeInfo",
@@ -160,6 +224,9 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
+      }
+
+     
 
       let {
         recipe_id,

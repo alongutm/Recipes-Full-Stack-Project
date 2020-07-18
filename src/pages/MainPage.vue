@@ -6,7 +6,8 @@
           ref="RecipePreviewList"
           title="Explore These Recipes"
           class="RandomRecipes left"
-        />
+        >
+        </RecipePreviewList>  
         <br />
         <b-button block variant="dark" @click="updateRecipes">Load More Recipes</b-button>
       </b-col>

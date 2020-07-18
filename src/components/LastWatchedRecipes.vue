@@ -35,8 +35,8 @@
       <img src="https://img.icons8.com/windows/32/000000/time.png" />
       {{recipes[slide].coockingTime}} minutes
       <br />
-      {{recipes[slide].numberOfLikes}}
       <img src="https://img.icons8.com/dusk/24/000000/facebook-like.png" style="margin-bottom:9px;"/>
+      {{recipes[slide].numberOfLikes}}
       <div v-if="recipes[slide].isVegan">
         <img src="https://img.icons8.com/android/24/000000/carrot.png" />
       </div>
