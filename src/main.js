@@ -152,8 +152,8 @@ new Vue({
         toaster: "b-toaster-top-center",
         variant: variant,
         solid: true,
-        appendToast: append,
-        autoHideDelay: 3000,
+        appendToast: append, 
+        autoHideDelay: 3000, 
       });
     },
   },
