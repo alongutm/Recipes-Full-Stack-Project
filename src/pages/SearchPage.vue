@@ -185,9 +185,7 @@ export default {
   methods: {
     async search() {
       this.searched = true;
-      console.log("functionn search!");
       try {
-        console.log("########################## #########");
         let endPoint = "recipes";
         if (this.$root.store.username) {
           endPoint = "profiles";
@@ -213,7 +211,6 @@ export default {
         );
         //show recipes with component
         console.log(response);
-        console.log("####################################3");
         console.log(response.data);
         let recipesArr;
         if (endPoint == "recipes") {
