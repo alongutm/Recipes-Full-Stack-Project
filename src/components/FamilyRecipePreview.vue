@@ -26,7 +26,7 @@
                   <b-icon icon="hand-thumbs-up"></b-icon>
                 </b-list-group-item>
                 <b-list-group-item v-if="recipe.isSeen">
-                  <b-icon icon="check-all"></b-icon>
+        <img src="https://img.icons8.com/offices/30/000000/visible.png" style="margin-left:0px;"/>
                 </b-list-group-item>
                 <b-list-group-item>
                   <img src="https://img.icons8.com/windows/32/000000/time.png" />

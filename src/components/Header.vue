@@ -18,10 +18,7 @@
 
           <!-- Right aligned nav items for a signed in user -->
           <b-navbar-nav class="ml-auto">
-            <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-            </b-nav-form>
+  
 
             <b-nav-item-dropdown v-if="$root.store.username" right>
               <!-- Using 'button-content' slot -->
@@ -76,7 +73,7 @@ export default {
     },
     logout() {
       this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
+      this.$root.toast("Logout", "User logged out successfully", "primary");
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });

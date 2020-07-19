@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <h1>
+  <div style="height:492px;">
+      <h1 id="about">
           About Us
       </h1>
       <b-carousel
@@ -18,7 +18,7 @@
     >
       <!-- Text slides with image -->
       <b-carousel-slide
-        img-src="https://picsum.photos/1024/480/?image=59"
+        img-src="https://res.cloudinary.com/dvc9uejg6/image/upload/v1595156223/WhatsApp_Image_2020-07-19_at_13.56.40_jgkm2j.jpg"
         text="We are Amit & Alon and this is our recipes site :)"
       ></b-carousel-slide>
 
@@ -26,14 +26,14 @@
      <a href="https://sise-web-development-environments.github.io/203169693/" target="_blank">
       <b-carousel-slide
         img-src="https://res.cloudinary.com/dvc9uejg6/image/upload/v1594582885/site2_kwonf6.jpg">
-        <p style="color:black;" >Alon's Personal Site</p>
+        <p style="color:black;" >Click To Check Out Alon's Personal Site</p>
       </b-carousel-slide>
     </a>
 
      <a href="https://amitshakarchy.github.io/313278889/" target="_blank">
       <b-carousel-slide
         img-src="https://res.cloudinary.com/dvc9uejg6/image/upload/v1594574852/htmlIMG_j51j0o.jpg">
-        <p style="color:black;" >Amit's Personal Site</p>
+        <p style="color:black;" >Click To Check Out Amit's Personal Site</p>
       </b-carousel-slide>
     </a>
 
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style>
-h1 { color: #4188f3; 
+#about { color: #4188f3; 
 font-family: 'Rouge Script', cursive; 
 font-size: 110px; 
 font-weight: normal; 
@@ -68,5 +68,19 @@ text-align: center;
 text-shadow: 3px 3px 5px #000000;
 background-color: rgb(205, 233, 226);
 }
-
+html,body{
+   height:100%;
+}
+.carousel,.item,.active{
+   height:100%;
+ }
+.carousel-inner{
+    height:100%;
+}
+.item img {
+  width:100%
+}
+p {
+    white-space: pre;
+}
 </style>

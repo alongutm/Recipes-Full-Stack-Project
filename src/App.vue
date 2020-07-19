@@ -12,6 +12,11 @@ export default {
   components: {
     Header
   },
+  // data(){
+  //   return{
+  //     lastSearch: false
+  //   }
+  // },
   methods: {
     Logout() {
       this.$root.store.logout();

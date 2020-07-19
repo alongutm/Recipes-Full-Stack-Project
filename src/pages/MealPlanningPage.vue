@@ -55,6 +55,7 @@ export default {
     };
   },
   async created() {
+    //sholef
     const mealPlanListTmp = JSON.parse(localStorage.getItem("mealPlanList"));
     mealPlanListTmp.map(meal => {
       if (meal != undefined) this.mealPlanList.push(meal);
@@ -62,6 +63,7 @@ export default {
     console.log(this.mealPlanList);
   },
   methods: {
+    //touch
     removeItem(id) {
       let tmpList = [];
       this.mealPlanList.map(frecipe => {

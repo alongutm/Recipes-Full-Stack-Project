@@ -6,7 +6,7 @@
           <b-breadcrumb-item href="/">
             <b-icon icon="house-fill"></b-icon>Home
           </b-breadcrumb-item>
-          <b-breadcrumb-item active>{{recipe.recipeName}}</b-breadcrumb-item>
+          <b-breadcrumb-item active>{{ recipe.recipeName }}</b-breadcrumb-item>
         </b-breadcrumb>
 
         <b-row>
@@ -17,19 +17,28 @@
           <b-col align-self="end">
             <b-button
               block
-              :to="{ name: 'prepareRecipe', params: { recipeId: recipe.recipe_id } }"
+              :to="{
+                name: 'prepareRecipe',
+                params: { recipeId: recipe.recipe_id },
+              }"
               variant="dark"
               size="lg"
               @click="addToMealPlan"
+<<<<<<< HEAD
               class="text"
             >Wanna make this dish? Click here!</b-button>
+=======
+              >Wanna make this dish? Click here!</b-button
+            >
+>>>>>>> 487cc9031495ad8d00df8c8239fd590f41b05db8
             <b-button
               block
               variant="dark"
               size="lg"
               class="text"
               @click="addToMealPlanandAndReload"
-            >Add the recipe to your next meal!</b-button>
+              >Add the recipe to your next meal!</b-button
+            >
           </b-col>
         </b-row>
 
@@ -65,11 +74,12 @@ export default {
   components: {
     Ingredients,
     Instructions,
-    RecipeDetails
+    RecipeDetails,
   },
   data() {
     return {
       recipe: null,
+
       mealPlanList: []
     };
   },
@@ -87,7 +97,7 @@ export default {
         this.mealPlanList[this.recipe.recipe_id] = this.recipe;
         this.$root.store.saveMealPlanList(this.mealPlanList);
       }
-    }
+    },
   },
   async created() {
     try {
@@ -95,17 +105,18 @@ export default {
 
       //user is signed in
       if (this.$root.store.username) {
+
         // console.log("gggg");
+
         this.axios.defaults.withCredentials = true;
         // add to last watched:
         const responseLastWatched = await this.axios.post(
           "http://localhost:3000/profiles/updateLastWatched",
           {
-            recipe_id: this.$route.params.recipeId
+            recipe_id: this.$route.params.recipeId,
           }
         );
         // check in My Recipes
-
         const response = await this.axios.get(
           "http://localhost:3000/profiles/myRecipes"
         );
@@ -113,7 +124,7 @@ export default {
         recipes.push(...response.data);
         //console.log(response.data);
         let result = recipes.filter(
-          x => x.recipe_id === this.$route.params.recipeId
+          (x) => x.recipe_id === this.$route.params.recipeId
         )[0];
         //  console.log(result.recipe_id);
 
@@ -131,7 +142,7 @@ export default {
             IngredientList,
             MealsQuantity,
             extendedIngredients,
-            analyzedInstructions
+            analyzedInstructions,
           } = result;
 
           let __recipe = {
@@ -147,29 +158,106 @@ export default {
             IngredientList,
             MealsQuantity,
             extendedIngredients,
-            analyzedInstructions
+            analyzedInstructions,
           };
 
           __recipe.IngredientList = IngredientList.split(",");
           this.recipe = __recipe;
+          console.log(
+            this.recipe.recipe_id +
+              " " +
+              this.recipe.isSeen +
+              " recipeViewPage Line 67"
+          );
+          return;
+        } else {
+          //user logged in and recipe isn't from myRecipes
+          console.log("recipe id is " + this.$route.params.recipeId);
+          console.log("user name is " + this.$root.store.username);
+          //add to seen recipes
+          const response = await this.axios.post(
+            "http://localhost:3000/profiles/updateSeenRecipe",
+            {
+              params: {
+                recipe_id: this.$route.params.recipeId,
+                username: this.$root.store.username,
+              },
+            }
+          );
+          //update this recipe with all fields
+          const response2 = await this.axios.get(
+            "http://localhost:3000/profiles/recipeById",
+            {
+              params: { recipe_id: this.$route.params.recipeId },
+            }
+          );
+
+          console.log(response2.data[0]);
+          let {
+            recipe_id,
+            recipeName,
+            image,
+            coockingTime,
+            numberOfLikes,
+            instructions,
+            isVegan,
+            isVegeterian,
+            isGlutenFree,
+            IngredientList,
+            MealsQuantity,
+            isFavorite,
+            extendedIngredients,
+            analyzedInstructions,
+          } = response2.data[0];
+          console.log(analyzedInstructions);
+          console.log(recipe_id);
+          let _instructions = analyzedInstructions
+            .map((fstep) => {
+              fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+              return fstep.steps;
+            })
+            .reduce((a, b) => [...a, ...b], []);
+
+          let _recipe = {
+            recipe_id,
+            recipeName,
+            image,
+            coockingTime,
+            numberOfLikes,
+            instructions,
+            _instructions,
+            analyzedInstructions,
+            isVegan,
+            isVegeterian,
+            isGlutenFree,
+            IngredientList,
+            MealsQuantity,
+            isFavorite,
+            extendedIngredients,
+          };
+          this.recipe = _recipe;
+        }
+        // this.isFavorite = response2.data.isFavorite;
+
+        //add
+      } else {
+        //guest
+        try {
+          response = await this.axios.get(
+            "http://localhost:3000/recipes/recipeInfo",
+            {
+              params: { recipe_id: this.$route.params.recipeId },
+            }
+          );
+
+          if (response.status !== 200) {
+            this.$router.replace("/NotFound");
+          }
+        } catch (error) {
+          console.log("error.response.status", error.response.status);
+          this.$router.replace("/NotFound");
           return;
         }
-      }
-      try {
-        response = await this.axios.get(
-          "http://localhost:3000/recipes/recipeInfo",
-          {
-            params: { recipe_id: this.$route.params.recipeId }
-          }
-        );
-
-        if (response.status !== 200) {
-          this.$router.replace("/NotFound");
-        }
-      } catch (error) {
-        console.log("error.response.status", error.response.status);
-        this.$router.replace("/NotFound");
-        return;
       }
 
       let {
@@ -185,11 +273,11 @@ export default {
         IngredientList,
         MealsQuantity,
         extendedIngredients,
-        analyzedInstructions
+        analyzedInstructions,
       } = response.data.data;
 
       let _instructions = analyzedInstructions
-        .map(fstep => {
+        .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;
           return fstep.steps;
         })
@@ -209,14 +297,14 @@ export default {
         isGlutenFree,
         IngredientList,
         MealsQuantity,
-        extendedIngredients
+        extendedIngredients,
       };
       this.recipe = _recipe;
       //    console.log(this.recipe.analyzedInstructions);
     } catch (error) {
       console.log(error);
     }
-  }
+  },
 };
 </script>
 

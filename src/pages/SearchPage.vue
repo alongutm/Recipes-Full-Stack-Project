@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="title">Search Recipes</h1>
-    <b-form v-if="!searched" @submit.prevent="search">
+    <b-form v-show="!searched" @submit.prevent="search">
       <b-form-input
         v-model="query"
         id="query"
@@ -38,45 +38,45 @@
         size="lg"
         type="submit"
         block
-        variant="primary"
+        variant="dark"
         >Search</b-button
       >
     </b-form>
-    <div v-else>
-      <b-button size="lg" block variant="primary" v-on:click="newSearch"
+    <div v-show="searched">
+      <b-button size="lg" block variant="dark" v-on:click="newSearch"
         >New Search</b-button
       >
-      <h2 v-if="emptyResults">The Search Returned No Results</h2>
-      <div v-if="!emptyResults">
+      <h2 v-show="emptyResults">The Search Returned No Results</h2>
+      <div v-show="!emptyResults">
         <span class="firstLabel">
-         <label class="radio-inline">
-        <b-form-group 
-        label="Sorting Criteria"
-        label-class="font-weight-bold pt-0"
-        >
-          <b-form-radio-group
-            v-model="selectedOption"
-            :options="sortOptions"
-            name="radios-stacked"
-            stacked
-          ></b-form-radio-group>
-        </b-form-group>
-        </label>
+          <label class="radio-inline">
+            <b-form-group
+              label="Sorting Criteria"
+              label-class="font-weight-bold pt-0"
+            >
+              <b-form-radio-group
+                v-model="selectedOption"
+                :options="sortOptions"
+                name="radios-stacked"
+                stacked
+              ></b-form-radio-group>
+            </b-form-group>
+          </label>
         </span>
-         <span class="firstLabel">
-        <label class="radio-inline">
-        <b-form-group 
-        label="Sorting Order"
-        label-class="font-weight-bold pt-0"
-        >
-          <b-form-radio-group
-            v-model="selectedOrder"
-            :options="sortOrder"
-            name="radios-stacked2"
-            stacked
-          ></b-form-radio-group>
-        </b-form-group>
-        </label>
+        <span class="firstLabel">
+          <label class="radio-inline">
+            <b-form-group
+              label="Sorting Order"
+              label-class="font-weight-bold pt-0"
+            >
+              <b-form-radio-group
+                v-model="selectedOrder"
+                :options="sortOrder"
+                name="radios-stacked2"
+                stacked
+              ></b-form-radio-group>
+            </b-form-group>
+          </label>
         </span>
 
         <b-button
@@ -88,16 +88,15 @@
           >Sort</b-button
         >
       </div>
-<b-container class="container">
-      <RecipePreviewList
-        v-if="!emptyResults"
-        ref="RecipePreviewList"
-        title="Search Results"
-        class="RandomRecipes left"
-      >
-      </RecipePreviewList>
-</b-container>
-
+      <b-container class="container">
+        <RecipePreviewList
+          v-show="!emptyResults"
+          ref="RecipePreviewList"
+          title="Search Results"
+          class="RandomRecipes left"
+        >
+        </RecipePreviewList>
+      </b-container>
     </div>
   </div>
 </template>
@@ -182,12 +181,11 @@ export default {
       returnedRecipes: [],
     };
   },
+
   methods: {
     async search() {
       this.searched = true;
-      console.log("functionn search!");
       try {
-        console.log("########################## #########");
         let endPoint = "recipes";
         if (this.$root.store.username) {
           endPoint = "profiles";
@@ -213,7 +211,6 @@ export default {
         );
         //show recipes with component
         console.log(response);
-        console.log("####################################3");
         console.log(response.data);
         let recipesArr;
         if (endPoint == "recipes") {
@@ -222,9 +219,20 @@ export default {
           recipesArr = response.data;
         }
         if (typeof response !== "undefined" && recipesArr.length > 0) {
-          this.returnedRecipes = recipesArr;
-          this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
-          this.radioBoxes = true;
+          if (endPoint == "profiles") {
+            this.returnedRecipes = recipesArr;
+            console.log("line 238 searchPage");
+            console.log(recipesArr);
+            console.log(this.returnedRecipes);
+            this.$root.store.saveResultSearch(
+              this.returnedRecipes,
+              `searchResults`
+            );
+            this.radioBoxes = true;
+            this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
+          } else {
+            this.$refs.RecipePreviewList.searchRecipes(recipesArr);
+          }
         } else {
           this.emptyResults = true;
         }
@@ -282,6 +290,30 @@ export default {
         }
       }
     },
+  },
+  mounted: function() {
+    // this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been rendered
+    console.log("line 186 search");
+    console.log(this.$root.store.searchResults);
+    if (
+      this.$root.store.searchResults &&
+      this.$root.store.searchResults.length > 0
+    ) {
+      console.log("recipes exists");
+      this.emptyResults = false;
+      this.searched = true;
+      let savedResults = JSON.parse(sessionStorage.getItem(`searchResults`));
+      console.log(savedResults);
+      this.returnedRecipes = savedResults;
+      this.$forceUpdate();
+      console.log("refs: ", this.$refs);
+      console.log("refs[0]: ", this.$refs.RecipePreviewList);
+      this.$refs.RecipePreviewList.searchRecipes(this.returnedRecipes);
+    } else {
+    }
+    // })
   },
 };
 </script>
