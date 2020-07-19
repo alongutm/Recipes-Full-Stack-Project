@@ -73,7 +73,8 @@ export default {
   data() {
     return {
       recipe: null,
-      mealPlanList: [],
+
+      mealPlanList: []
     };
   },
   methods: {
@@ -98,7 +99,9 @@ export default {
 
       //user is signed in
       if (this.$root.store.username) {
+
         // console.log("gggg");
+
         this.axios.defaults.withCredentials = true;
         // add to last watched:
         const responseLastWatched = await this.axios.post(
