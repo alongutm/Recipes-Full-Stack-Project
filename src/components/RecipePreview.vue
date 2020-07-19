@@ -51,6 +51,7 @@
 
 <script>
 export default {
+  name: "RecipePreview",
   data() {
     return {};
   },
@@ -102,6 +103,9 @@ export default {
 </script>
 
 <style scoped>
+div {
+  font-family: "Bahnschrift Light", Times, serif;
+}
 .recipe-preview {
   display: inline-block;
   width: 90%;

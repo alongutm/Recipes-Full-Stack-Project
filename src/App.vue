@@ -47,4 +47,9 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+h3 ,h5{
+  font-family: "Bahnschrift", Times, serif;
+}
+
 </style>

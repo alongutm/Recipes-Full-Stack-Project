@@ -2,7 +2,7 @@
   <div id="header">
     <div>
       <b-navbar tabs toggleable="lg" type="dark" variant="dark">
-        <b-navbar-brand :to="{ name: 'main' }">CookBook</b-navbar-brand>
+        <b-navbar-brand @click="mainPage" class="cookBook" :to="{ name: 'main' }">CookBook</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -47,7 +47,7 @@
             </b-nav-item-dropdown>
 
             <b-avatar variant="secondary" v-if="!$root.store.username"></b-avatar>
-            <b-avatar src="$root.store.profile_pic" v-else></b-avatar>
+            <b-avatar size="4rem" :src="profile_pic" v-else></b-avatar>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -58,8 +58,14 @@
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      profile_pic: ""
+    };
+  },
   mounted() {
     this.itemsInBasket();
+    this.getProfilePic();
   },
   methods: {
     itemsInBasket() {
@@ -74,7 +80,27 @@ export default {
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
+    },
+    async getProfilePic() {
+      this.axios.defaults.withCredentials = true;
+      const user_profile_pic = await this.axios.get(
+        "http://localhost:3000/profiles/getProfilePic"
+      );
+      //console.log(user_profile_pic.data);
+      this.profile_pic = user_profile_pic.data;
+    },
+    mainPage() {
+      this.$router.push("/");
+      location.reload();
     }
   }
 };
 </script>
+<style>
+.cookBook {
+  font-family: "Bahnschrift", Times, serif;
+}
+div {
+  font-family: "Bahnschrift", Times, serif;
+}
+</style>

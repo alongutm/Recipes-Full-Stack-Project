@@ -47,4 +47,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+h1 {
+  font-size: 30px;
+  line-height: 45px;
+}
 </style>

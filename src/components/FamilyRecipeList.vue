@@ -61,4 +61,9 @@ export default {
 .container {
   min-height: 400px;
 }
+h3,
+h5,
+h1 {
+  font-family: "Bahnschrift", Times, serif;
+}
 </style>

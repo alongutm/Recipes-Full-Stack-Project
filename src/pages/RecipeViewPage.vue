@@ -21,11 +21,13 @@
               variant="dark"
               size="lg"
               @click="addToMealPlan"
+              class="text"
             >Wanna make this dish? Click here!</b-button>
             <b-button
               block
               variant="dark"
               size="lg"
+              class="text"
               @click="addToMealPlanandAndReload"
             >Add the recipe to your next meal!</b-button>
           </b-col>
@@ -231,6 +233,13 @@ export default {
   margin-right: auto;
   width: 50%;
 }
+h3,
+h5,
+h1,.text {
+  font-family: "Bahnschrift", Times, serif;
+}
+
+
 /* .recipe-header{
 
 } */

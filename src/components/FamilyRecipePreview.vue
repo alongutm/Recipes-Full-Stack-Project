@@ -43,7 +43,7 @@
               <b-img fluid-grow rounded alt="Rounded image" :src="recipe.image" />
               <!--Instructions-->
               <div>
-                <h2>Ready? Let's start!</h2>
+                <h3>Ready? Let's start!</h3>
                 <b-list-group flush>
                   <div v-if="recipe._instructions">
                     <b-list-group-item v-for="s in recipe._instructions" :key="s.number">
@@ -193,5 +193,11 @@ export default {
   display: table-cell;
   text-align: center;
 }
+h3,
+h5,
+h1 {
+  font-family: "Bahnschrift", Times, serif;
+}
+
 </style>
 
