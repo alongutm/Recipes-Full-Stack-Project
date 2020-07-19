@@ -25,17 +25,17 @@ import RecipePreview from "./RecipePreview.vue";
 export default {
   name: "RecipePreviewList",
   components: {
-    RecipePreview
+    RecipePreview,
   },
   props: {
     title: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
     };
   },
   // mounted() {
@@ -44,9 +44,9 @@ export default {
   methods: {
     async updateRecipes() {
       let endPoint = "recipes";
-        if (this.$root.store.username) {
-          endPoint = "profiles";
-        }
+      if (this.$root.store.username) {
+        endPoint = "profiles";
+      }
       try {
         const response = await this.axios.get(
           `http://localhost:3000/${endPoint}/randomRecipes`
@@ -69,9 +69,9 @@ export default {
         const response = await this.axios.get(
           "http://localhost:3000/profiles/myFavorites",
           {
-            params: { 
-                      recipe_id: this.$route.params.recipeId
-                    }
+            params: {
+              recipe_id: this.$route.params.recipeId,
+            },
           }
         );
         const recipes = response.data.data;
@@ -120,8 +120,8 @@ export default {
       this.recipes.push(...recipesArray);
       console.log("RecipePreviewList is");
       console.log(this.recipes);
-    }
-  }
+    },
+  },
 };
 </script>
 

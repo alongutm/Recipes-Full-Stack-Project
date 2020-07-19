@@ -77,12 +77,15 @@ const shared_data = {
   recipeProgress: localStorage.recipeProgress,
   mealPlanList: localStorage.mealPlanList,
   mealPlanCounter: localStorage.mealPlanCounter,
+  searchResults: sessionStorage.searchResults,
 
   login(username) {
     localStorage.clear();
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+    let searchResultsEmpty = [];
+    sessionStorage.setItem("searchResults",searchResultsEmpty);
 
     // set meal Plan counter
     this.mealPlanCounter = 0;
@@ -90,17 +93,29 @@ const shared_data = {
   },
   logout() {
     console.log("logout");
+    this.searchResults = null;
     localStorage.removeItem("username");
     localStorage.removeItem("recipeProgress");
     localStorage.removeItem("mealPlanList");
+    sessionStorage.removeItem("searchResults");
     this.username = undefined;
     this.recipeProgress = undefined;
     localStorage.clear();
+    sessionStorage.clear();
   },
   saveRecipeProgress(recipeProgress, item) {
     this.recipeProgress = recipeProgress;
     localStorage.setItem(item, JSON.stringify(this.recipeProgress));
     console.log(JSON.parse(localStorage.getItem(item)));
+  },
+  saveResultSearch(searchResults,item){
+    sessionStorage.clear();
+    this.searchResults = searchResults;
+    console.log("line 113 main");
+    console.log(this.searchResults);
+    sessionStorage.setItem(item,JSON.stringify(this.searchResults));
+    console.log("line 116 main::::::::");
+    console.log(JSON.parse(sessionStorage.getItem(item)));
   },
   saveMealPlanList(mealPlanList) {
     localStorage.removeItem("mealPlanList");
@@ -127,6 +142,7 @@ new Vue({
   data() {
     return {
       store: shared_data,
+
     };
   },
   methods: {
@@ -136,8 +152,8 @@ new Vue({
         toaster: "b-toaster-top-center",
         variant: variant,
         solid: true,
-        appendToast: append,
-        autoHideDelay: 3000,
+        appendToast: append, 
+        autoHideDelay: 3000, 
       });
     },
   },
