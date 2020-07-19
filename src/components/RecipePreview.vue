@@ -86,6 +86,8 @@ export default {
           let id = response.data.data;
           //console.log("Line 82 recipe obj: " + this.recipe. );
           console.log("Line 83 RecipePreview  - recipe name is " + this.recipe.title );
+          console.log(this.recipe );
+
           console.log("Line 84 RecipePreview  - id length is " + id.length );
           if (id.length > 0) {
             this.recipe.isFavorite = true;
