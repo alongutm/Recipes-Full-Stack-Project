@@ -49,4 +49,12 @@ export default {
 .block {
   display: block;
 }
+h3,
+h5,
+h1 {
+  font-family: "Bahnschrift", Times, serif;
+}
+div {
+  font-family: "Bahnschrift", Times, serif;
+}
 </style>

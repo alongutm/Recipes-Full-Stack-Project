@@ -24,12 +24,18 @@
               variant="dark"
               size="lg"
               @click="addToMealPlan"
+<<<<<<< HEAD
+              class="text"
+            >Wanna make this dish? Click here!</b-button>
+=======
               >Wanna make this dish? Click here!</b-button
             >
+>>>>>>> 487cc9031495ad8d00df8c8239fd590f41b05db8
             <b-button
               block
               variant="dark"
               size="lg"
+              class="text"
               @click="addToMealPlanandAndReload"
               >Add the recipe to your next meal!</b-button
             >
@@ -315,6 +321,13 @@ export default {
   margin-right: auto;
   width: 50%;
 }
+h3,
+h5,
+h1,.text {
+  font-family: "Bahnschrift", Times, serif;
+}
+
+
 /* .recipe-header{
 
 } */

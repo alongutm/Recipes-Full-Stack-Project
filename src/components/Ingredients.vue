@@ -39,4 +39,7 @@ export default {
 .container {
   max-width: 400px;
 }
+div {
+  font-family: "Bahnschrift", Times, serif;
+}
 </style>

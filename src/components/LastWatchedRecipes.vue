@@ -77,10 +77,10 @@ export default {
         const response = await this.axios.get(
           "http://localhost:3000/profiles/lastWatched"
         );
-        console.log(response.data);
-        const recipes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipes);
+        //console.log(response.data);
+        const recipesResponse = response.data;
+        // this.recipes = [];
+        this.recipes.push(...recipesResponse);
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);

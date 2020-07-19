@@ -6,14 +6,12 @@
         <slot></slot>
       </h3>
       <b-alert
-      v-model="wrongLogin"
-      class="position-fixed fixed-top m-0 rounded-0"
-      style="z-index: 2000;"
-      variant="danger"
-      dismissible
-    >
-      Login Failed!
-    </b-alert>
+        v-model="wrongLogin"
+        class="position-fixed fixed-top m-0 rounded-0"
+        style="z-index: 2000;"
+        variant="danger"
+        dismissible
+      >Login Failed!</b-alert>
       <b-form @submit.prevent="onLogin">
         <b-form-group
           id="input-group-Username"
@@ -79,7 +77,7 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined,
+        submitError: undefined
       },
       wrongLogin: false
     };
@@ -108,21 +106,24 @@ export default {
             password: this.form.password
           }
         );
-        // console.log(response);
+
         // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
+        console.log(this.form.username);
         this.$root.store.login(this.form.username);
-        this.$router.replace("/")
+        this.$root.store.restartMealPlanCounter(0);
+        this.$router.push("/");
       } catch (err) {
-        console.log(err.response);
+        console.log(err);
         this.form.submitError = err.response.data.message;
         //add error message
         //this.wrongLogin = true;
         this.form.username = "";
         this.form.password = "";
-        this.$root.toast('Login Failed', 'Login Failed due to wrong authentication','danger');
-    
-
+        this.$root.toast(
+          "Login Failed",
+          "Login Failed due to wrong authentication",
+          "danger"
+        );
       }
     },
     onLogin() {

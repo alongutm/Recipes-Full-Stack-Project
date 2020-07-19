@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Ready? Let's start!</h2>
+    <h3>Ready? Let's start!</h3>
     <b-list-group flush>
       <div v-if="recipe._instructions">
         <b-list-group-item v-for="s in recipe._instructions" :key="s.number">
@@ -34,5 +34,13 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+}
+h3,
+h5,
+h1 {
+  font-family: "Bahnschrift", Times, serif;
+}
+div {
+  font-family: "Bahnschrift", Times, serif;
 }
 </style>

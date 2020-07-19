@@ -19,4 +19,9 @@ export default {
 </script>
 
 <style>
+h3,
+h5,
+h1 {
+  font-family: "Bahnschrift", Times, serif;
+}
 </style>

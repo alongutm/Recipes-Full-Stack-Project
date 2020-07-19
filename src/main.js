@@ -84,12 +84,11 @@ const shared_data = {
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
-    let searchResultsEmpty = [];
-    sessionStorage.setItem("searchResults",searchResultsEmpty);
-
+  },
+  restartMealPlanCounter(mealPlanCounter) {
     // set meal Plan counter
-    this.mealPlanCounter = 0;
     localStorage.setItem("mealPlanCounter", mealPlanCounter);
+    this.mealPlanCounter = mealPlanCounter;
   },
   logout() {
     console.log("logout");
@@ -97,7 +96,7 @@ const shared_data = {
     localStorage.removeItem("username");
     localStorage.removeItem("recipeProgress");
     localStorage.removeItem("mealPlanList");
-    sessionStorage.removeItem("searchResults");
+    localStorage.removeItem("mealPlanCounter");
     this.username = undefined;
     this.recipeProgress = undefined;
     localStorage.clear();
