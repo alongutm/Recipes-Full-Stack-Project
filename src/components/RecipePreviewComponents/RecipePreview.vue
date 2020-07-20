@@ -52,7 +52,7 @@
             v-if="recipe.isFavorite"
             src="https://img.icons8.com/material-sharp/24/000000/hearts.png"
           />
-          <b-button v-if="!recipe.isFavorite" variant="light" @click="saveToFavorites">
+          <b-button v-if="!recipe.isFavorite" variant="light"  v-b-tooltip.hover title="Add To Favorites" @click="saveToFavorites">
             <b-icon icon="heart"></b-icon>
           </b-button>
         </div>

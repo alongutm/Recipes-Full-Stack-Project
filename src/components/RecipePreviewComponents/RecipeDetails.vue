@@ -20,7 +20,7 @@
         <img src="https://img.icons8.com/material-sharp/24/000000/hearts.png"/>
       </b-list-group-item>
       <b-list-group-item v-if="!recipe.isFavorite">
-        <b-button variant="light" @click="saveToFavorites">
+        <b-button variant="light" v-b-tooltip.hover title="Add To Favorites" @click="saveToFavorites">
           <b-icon icon="heart"></b-icon>
         </b-button>
       </b-list-group-item>
