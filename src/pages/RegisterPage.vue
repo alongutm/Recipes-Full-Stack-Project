@@ -1,25 +1,30 @@
 <template>
   <div class="container">
     <h1 class="title">Register</h1>
-    <b-form @submit.prevent="onRegister" @reset.prevent="onReset" >
+    <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
       <!-- username input  -->
-      <b-form-group 
+      <b-form-group
         id="input-group-username"
         label-cols-sm="3"
         label="Username:"
         label-for="username"
       >
-        <b-form-input 
+        <b-form-input
           id="username"
           v-model="$v.form.username.$model"
           type="text"
           :state="validateState('username')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.username.required">Username is required</b-form-invalid-feedback>
-        <b-form-invalid-feedback
-          v-else-if="!$v.form.username.length"
-        >Username length should be between 3-8 characters long</b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.username.alpha">Username alpha</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.username.required"
+          >Username is required</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-else-if="!$v.form.username.length"
+          >Username length should be between 3-8 characters
+          long</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-if="!$v.form.username.alpha"
+          >Username alpha</b-form-invalid-feedback
+        >
         <b-form-valid-feedback v-else />
       </b-form-group>
 
@@ -36,11 +41,16 @@
           type="text"
           :state="validateState('firstName')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.firstName.required">First name is required</b-form-invalid-feedback>
-        <b-form-invalid-feedback
-          v-else-if="!$v.form.firstName.length"
-        >First name's length should be between 2-8 characters long</b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">First tName alpha</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.required"
+          >First name is required</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-else-if="!$v.form.firstName.length"
+          >First name's length should be between 2-8 characters
+          long</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha"
+          >First tName alpha</b-form-invalid-feedback
+        >
         <b-form-valid-feedback v-else />
       </b-form-group>
 
@@ -57,22 +67,34 @@
           type="text"
           :state="validateState('lastName')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.lastName.required">First name is required</b-form-invalid-feedback>
-        <b-form-invalid-feedback
-          v-else-if="!$v.form.lastName.length"
-        >Last name's length should be between 2-8 characters long</b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">Last tName alpha</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.required"
+          >First name is required</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-else-if="!$v.form.lastName.length"
+          >Last name's length should be between 2-8 characters
+          long</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha"
+          >Last tName alpha</b-form-invalid-feedback
+        >
         <b-form-valid-feedback v-else />
       </b-form-group>
       <!-- country input  -->
-      <b-form-group id="input-group-country" label-cols-sm="3" label="Country:" label-for="country">
+      <b-form-group
+        id="input-group-country"
+        label-cols-sm="3"
+        label="Country:"
+        label-for="country"
+      >
         <b-form-select
           id="country"
           v-model="$v.form.country.$model"
           :options="countries"
           :state="validateState('country')"
         ></b-form-select>
-        <b-form-invalid-feedback v-if="!$v.form.country.required">Country is required</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.country.required"
+          >Country is required</b-form-invalid-feedback
+        >
         <b-form-valid-feedback v-else />
       </b-form-group>
 
@@ -89,21 +111,29 @@
           v-model="$v.form.password.$model"
           :state="validateState('password')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.password.required">Password is required</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.password.required"
+          >Password is required</b-form-invalid-feedback
+        >
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
           Your password should be
-          <strong>strong</strong>.
-          <br />For that, your password should be also:
+          <strong>strong</strong>. <br />For that, your password should be also:
         </b-form-text>
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
-        >Have length between 5-10 characters long</b-form-invalid-feedback>
+          >Have length between 5-10 characters long</b-form-invalid-feedback
+        >
         <b-form-invalid-feedback
-          v-else-if="$v.form.password.required && !$v.form.password.containsNumber"
-        >Contain at least one number</b-form-invalid-feedback>
+          v-else-if="
+            $v.form.password.required && !$v.form.password.containsNumber
+          "
+          >Contain at least one number</b-form-invalid-feedback
+        >
         <b-form-invalid-feedback
-          v-else-if="$v.form.password.required && !$v.form.password.containsSpecial"
-        >Contain at least one special character</b-form-invalid-feedback>
+          v-else-if="
+            $v.form.password.required && !$v.form.password.containsSpecial
+          "
+          >Contain at least one special character</b-form-invalid-feedback
+        >
         <b-form-valid-feedback v-else />
       </b-form-group>
 
@@ -120,27 +150,38 @@
           v-model="$v.form.confirmedPassword.$model"
           :state="validateState('confirmedPassword')"
         ></b-form-input>
-        <b-form-invalid-feedback
-          v-if="!$v.form.confirmedPassword.required"
-        >Password confirmation is required</b-form-invalid-feedback>
-        <b-form-invalid-feedback
-          v-if="!$v.form.confirmedPassword.required"
-        >Password confirmation is required</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.confirmedPassword.required"
+          >Password confirmation is required</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-if="!$v.form.confirmedPassword.required"
+          >Password confirmation is required</b-form-invalid-feedback
+        >
         <b-form-invalid-feedback
           v-else-if="!$v.form.confirmedPassword.sameAsPassword"
-        >The confirmed password is not equal to the original password</b-form-invalid-feedback>
+          >The confirmed password is not equal to the original
+          password</b-form-invalid-feedback
+        >
       </b-form-group>
 
       <!-- email input  -->
-      <b-form-group id="input-group-email" label-cols-sm="3" label="Email:" label-for="email">
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email"
+      >
         <b-form-input
           id="email"
           type="email"
           v-model="$v.form.email.$model"
           :state="validateState('email')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.email.required">Email is required</b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.email">Please insert an Email address.</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.email.required"
+          >Email is required</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-else-if="!$v.form.email"
+          >Please insert an Email address.</b-form-invalid-feedback
+        >
       </b-form-group>
 
       <!-- profile picture input  -->
@@ -156,13 +197,21 @@
           v-model="$v.form.profile_pic.$model"
           :state="validateState('profile_pic')"
         ></b-form-input>
-        <b-form-invalid-feedback
-          v-if="!$v.form.profile_pic.required"
-        >Profile picture's link is required</b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.profile_pic">Please insert a valid URL.</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.profile_pic.required"
+          >Profile picture's link is required</b-form-invalid-feedback
+        >
+        <b-form-invalid-feedback v-else-if="!$v.form.profile_pic"
+          >Please insert a valid URL.</b-form-invalid-feedback
+        >
       </b-form-group>
       <b-button type="reset" variant="danger">Reset</b-button>
-      <b-button type="submit" variant="primary" style="width:250px;" class="ml-5 w-75">Register</b-button>
+      <b-button
+        type="submit"
+        variant="primary"
+        style="width:250px;"
+        class="ml-5 w-75"
+        >Register</b-button
+      >
       <div class="mt-2">
         You have an account already?
         <router-link to="login">Log in here</router-link>
@@ -174,7 +223,8 @@
       variant="warning"
       dismissible
       show
-    >Register failed: {{ form.submitError }}</b-alert>
+      >Register failed: {{ form.submitError }}</b-alert
+    >
     <!-- <b-card class="mt-3 md-3" header="Form Data Result">
       <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
       <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
@@ -191,7 +241,7 @@ import {
   alpha,
   sameAs,
   email,
-  url
+  url,
 } from "vuelidate/lib/validators";
 
 export default {
@@ -207,56 +257,57 @@ export default {
         confirmedPassword: "",
         email: "",
         profile_pic: "",
-        submitError: undefined
+        submitError: undefined,
       },
       countries: [{ value: null, text: "", disabled: true }],
       errors: [],
-      validated: false
+      validated: false,
     };
   },
   validations: {
     form: {
       firstName: {
         required,
-        length: firstName => minLength(2)(firstName) && maxLength(8)(firstName),
-        alpha
+        length: (firstName) =>
+          minLength(2)(firstName) && maxLength(8)(firstName),
+        alpha,
       },
       lastName: {
         required,
-        length: lastName => minLength(2)(lastName) && maxLength(8)(lastName),
-        alpha
+        length: (lastName) => minLength(2)(lastName) && maxLength(8)(lastName),
+        alpha,
       },
       username: {
         required,
-        length: u => minLength(3)(u) && maxLength(8)(u),
-        alpha
+        length: (u) => minLength(3)(u) && maxLength(8)(u),
+        alpha,
       },
       country: {
-        required
+        required,
       },
       password: {
         required,
-        length: p => minLength(5)(p) && maxLength(10)(p),
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
         containsNumber: function(value) {
           return /[0-9]/.test(value);
         },
         containsSpecial: function(value) {
           return /[#?!@$%^&*-]/.test(value);
-        }
+        },
       },
       confirmedPassword: {
         required,
-        sameAsPassword: sameAs("password")
+        sameAsPassword: sameAs("password"),
       },
       email: {
         required,
-        email
+        email,
       },
       profile_pic: {
         required,
-        url
-      }
-    }
+        url,
+      },
+    },
   },
   mounted() {
     this.countries.push(...countries);
@@ -279,14 +330,36 @@ export default {
             firstName: this.form.firstName,
             lastName: this.form.lastName,
             email: this.form.email,
-            profile_pic: this.form.profile_pic
+            profile_pic: this.form.profile_pic,
           }
         );
-        this.$router.push("/login");
-        console.log(response);
+        console.log("response status is", response.status);
+        console.log("response data is", response.data);
+        console.log("response data status is", response.data.status);
+        if (response.status == "201") {
+          this.$router.push("/login");
+          this.$root.toast(
+            "Sign Up",
+            "You Signed Up Successfully, Please Log In",
+            "primary"
+          );
+        } else if (response.status == "401") {
+          this.$root.toast(
+            "Sign Up Failed",
+            "Please Try Again",
+            "failed"
+          );
+        }
+
       } catch (err) {
+        if (err.response.data.status == "409") {
+          this.$root.toast(
+            "Sign Up Failed",
+            "User Name already exists",
+            "danger"
+          );
+        }
         console.log(err.response);
-        //this.form.submitError = err.response.data.message;
       }
     },
     onRegister() {
@@ -305,13 +378,13 @@ export default {
         country: null,
         password: "",
         confirmedPassword: "",
-        email: ""
+        email: "",
       };
       this.$nextTick(() => {
         this.$v.$reset();
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

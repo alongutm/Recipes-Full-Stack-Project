@@ -49,7 +49,7 @@ export default {
         this.value = 0;
       } else {
       //  console.log(progress.length);
-        this.value = progress.length;
+        this.value = progress.length -1;
       }
     }
   }
