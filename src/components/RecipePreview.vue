@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body style="width: 13rem; height: 30rem;"   img-alt="Image" img-top>
+  <b-card no-body style="width: 13rem; height: 30rem;" img-alt="Image" img-top>
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }"
       class="recipe-preview"
@@ -36,18 +36,29 @@
     <b-card-footer>
       <div style="display:flex">
         <div>
-      <img class="inline-block" src="https://img.icons8.com/dusk/24/000000/facebook-like.png" style="margin-bottom:9px; display: inline-block;"/>
-      {{recipe.numberOfLikes}}
-       </div>
-      <div class="inline-block"  style="text-align:right; float: right;" v-if="$root.store.username">
-        <img v-if="recipe.isFavorite" src="https://img.icons8.com/cotton/34/000000/like--v1.png"/>
-        <b-button v-if="!recipe.isFavorite" variant="light" @click="saveToFavorites">
-          <b-icon icon="heart" ></b-icon>
-        </b-button>
-      </div>
-      <div class="inline-block"  style="align:right" v-if="recipe.isSeen">
-        <img src="https://img.icons8.com/offices/30/000000/visible.png" align="right"/>
-      </div>
+          <img
+            class="inline-block"
+            src="https://img.icons8.com/dusk/24/000000/facebook-like.png"
+            style="margin-bottom:9px; display: inline-block;"
+          />
+          {{recipe.numberOfLikes}}
+        </div>
+        <div
+          class="inline-block"
+          style="text-align:right; float: right;"
+          v-if="$root.store.username"
+        >
+          <img
+            v-if="recipe.isFavorite"
+            src="https://img.icons8.com/material-sharp/24/000000/hearts.png"
+          />
+          <b-button v-if="!recipe.isFavorite" variant="light" @click="saveToFavorites">
+            <b-icon icon="heart"></b-icon>
+          </b-button>
+        </div>
+        <div class="inline-block" style="align:right" v-if="recipe.isSeen">
+          <img src="https://img.icons8.com/offices/30/000000/visible.png" align="right" />
+        </div>
       </div>
     </b-card-footer>
   </b-card>
@@ -76,7 +87,7 @@ export default {
       try {
         if (this.$root.store.username) {
           this.axios.defaults.withCredentials = true;
-          console.log("Line 76 recipe id is"+this.recipe.recipe_id);
+          console.log("Line 76 recipe id is" + this.recipe.recipe_id);
           console.log(this.recipe);
           const response = await this.axios.get(
             "http://localhost:3000/profiles/isFavorite",
@@ -86,14 +97,18 @@ export default {
           );
           let id = response.data.data;
           //console.log("Line 82 recipe obj: " + this.recipe. );
-          console.log("Line 83 RecipePreview  - recipe name is " + this.recipe.title );
-          console.log(this.recipe );
+          console.log(
+            "Line 83 RecipePreview  - recipe name is " + this.recipe.title
+          );
+          console.log(this.recipe);
 
-          console.log("Line 84 RecipePreview  - id length is " + id.length );
+          console.log("Line 84 RecipePreview  - id length is " + id.length);
           if (id.length > 0) {
             this.recipe.isFavorite = true;
-            console.log("Line 86 RecipePreview  - recipe.isFavorite is " + this.recipe.isFavorite );
-            
+            console.log(
+              "Line 86 RecipePreview  - recipe.isFavorite is " +
+                this.recipe.isFavorite
+            );
           }
         }
       } catch {}
@@ -101,7 +116,7 @@ export default {
     async saveToFavorites() {
       try {
         this.axios.defaults.withCredentials = true;
-        console.log(this.recipe.recipe_id + " recipePreview line 90 !!!!!")
+        console.log(this.recipe.recipe_id + " recipePreview line 90 !!!!!");
         const response = await this.axios.post(
           "http://localhost:3000/profiles/addFavorite",
           {

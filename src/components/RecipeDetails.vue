@@ -17,7 +17,7 @@
         <b-icon icon="hand-thumbs-up"></b-icon>
       </b-list-group-item>
       <b-list-group-item v-if="recipe.isFavorite">
-        <img src="https://img.icons8.com/cotton/34/000000/like--v1.png"/>
+        <img src="https://img.icons8.com/material-sharp/24/000000/hearts.png"/>
       </b-list-group-item>
       <b-list-group-item v-if="!recipe.isFavorite">
         <b-button variant="light" @click="saveToFavorites">
