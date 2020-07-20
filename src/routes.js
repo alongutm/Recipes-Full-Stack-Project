@@ -63,6 +63,27 @@ const routes = [
     component: () => import("./pages/MealPlanningPage"),
   },
   {
+    path: "/amit",
+    beforeEnter() {
+      location.href = "https://amitshakarchy.github.io/313278889/";
+    },
+  },
+  {
+    path: "/alon",
+    beforeEnter() {
+      location.href =
+        "https://sise-web-development-environments.github.io/203169693/";
+    },
+  },
+  {
+    path: "/packman",
+    beforeEnter() {
+      location.href =
+        "https://sise-web-development-environments.github.io/assignment2-amit_alon/";
+    },
+  },
+
+  {
     path: "*",
     name: "notFound",
     component: NotFound,

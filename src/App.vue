@@ -56,5 +56,12 @@ export default {
 h3 ,h5{
   font-family: "Bahnschrift", Times, serif;
 }
+.center {
+  margin-top: 1rem;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
 
 </style>

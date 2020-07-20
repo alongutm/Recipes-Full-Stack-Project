@@ -212,7 +212,8 @@ export default {
 
 <style>
 .center {
-  display: block;
+  margin-top: 1rem;
+  margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
   width: 80%;

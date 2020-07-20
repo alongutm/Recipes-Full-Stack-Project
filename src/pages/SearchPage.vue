@@ -84,7 +84,7 @@
           size="lg"
           style="margin-bottom: 30px;"
           @click="handleSort"
-          variant="info"
+          variant="dark"
           >Sort</b-button
         >
       </div>
