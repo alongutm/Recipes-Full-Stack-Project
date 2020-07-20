@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import RecipePreviewList from "../components/RecipePreviewComponents/RecipePreviewList";
 import LoginComponent from "../components/LoginComponent";
 import LastWatchedRecipes from "../components/LastWatchedRecipes";
 

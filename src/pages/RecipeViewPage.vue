@@ -24,13 +24,8 @@
               variant="dark"
               size="lg"
               @click="addToMealPlan"
-<<<<<<< HEAD
               class="text"
             >Wanna make this dish? Click here!</b-button>
-=======
-              >Wanna make this dish? Click here!</b-button
-            >
->>>>>>> 487cc9031495ad8d00df8c8239fd590f41b05db8
             <b-button
               block
               variant="dark"
@@ -65,9 +60,9 @@
 </template>
 
 <script>
-import Ingredients from "../components/Ingredients";
-import Instructions from "../components/Instructions";
-import RecipeDetails from "../components/RecipeDetails";
+import Ingredients from "../components/RecipePreviewComponents/Ingredients";
+import Instructions from "../components/RecipePreviewComponents/Instructions";
+import RecipeDetails from "../components/RecipePreviewComponents/RecipeDetails";
 import Header from "../components/Header";
 
 export default {

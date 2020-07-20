@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import RecipePreviewList from "../components/RecipePreviewComponents/RecipePreviewList";
 
 export default {
   components: {
