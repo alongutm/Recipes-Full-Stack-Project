@@ -1,5 +1,11 @@
 <template>
   <b-container class="container">
+    <b-breadcrumb>
+      <b-breadcrumb-item href="/">
+        <b-icon icon="house-fill"></b-icon>Home
+      </b-breadcrumb-item>
+      <b-breadcrumb-item active>My Meal Planner</b-breadcrumb-item>
+    </b-breadcrumb>
     <div>
       <h3>My Meal Planner</h3>
       <b-button size="sm" variant="dark" @click="removeAll">

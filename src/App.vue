@@ -36,7 +36,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
   min-height: 100vh;
 }
 
@@ -53,7 +52,8 @@ export default {
   color: #42b983;
 }
 
-h3 ,h5{
+h3,
+h5 {
   font-family: "Bahnschrift", Times, serif;
 }
 .center {
@@ -63,5 +63,4 @@ h3 ,h5{
   margin-right: auto;
   width: 80%;
 }
-
 </style>
