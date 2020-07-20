@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import FamilyRecipeList from "../components/FamilyRecipeList";
+import FamilyRecipeList from "../components/FamilyComponents/FamilyRecipeList";
 export default {
   components: {
     FamilyRecipeList
