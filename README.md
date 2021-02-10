@@ -1,5 +1,4 @@
-# assignment-3-3-amit_alon_ass3-1
-assignment-3-3-amit_alon_ass3-1 created by GitHub Classroom
+# Recipes-Full-Stack-Project
 * Welcome to our recipe site project!
 * Link to the API:
 https://app.swaggerhub.com/apis-docs/B5168/GRANDMA_RECIPES_SITE_API_Last/API_recipies_site_last_version
@@ -13,7 +12,9 @@ Nodejs install : https://nodejs.org/en/download/
 
 npm: https://www.npmjs.com/get-npm
 
-express library : npm install express
+express library : ```Java
+npm install express
+```
 
 nodemon : npm install nodemon
 
