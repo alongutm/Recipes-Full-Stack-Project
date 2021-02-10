@@ -12,20 +12,34 @@ Nodejs install : https://nodejs.org/en/download/
 
 npm: https://www.npmjs.com/get-npm
 
-express library : ```javascript
+express library : 
+```
 npm install express
-                  ```
+```
 
-nodemon : npm install nodemon
+nodemon : 
+```
+npm install nodemon
+```
 
-For run the server , please clone the repo and run : nodemon index.js
-
+For run the server , please clone the repo and run :
+```
+nodemon index.js
+```
 Client
-Project setup
+Project setup:
+```
 npm install
-Compiles and hot-reloads for development
+```
+Compiles and hot-reloads for development:
+```
 npm run serve
-Compiles and minifies for production
+```
+Compiles and minifies for production:
+```
 npm run build
-Lints and fixes files
+```
+Lints and fixes files:
+```
 npm run lint
+```
