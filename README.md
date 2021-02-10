@@ -12,9 +12,9 @@ Nodejs install : https://nodejs.org/en/download/
 
 npm: https://www.npmjs.com/get-npm
 
-express library : ```Java
+express library : ```javascript
 npm install express
-```
+                  ```
 
 nodemon : npm install nodemon
 
